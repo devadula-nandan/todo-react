@@ -11,7 +11,7 @@ class App extends Component {
     var payload = {
       active: true,
       priority: 0,
-      session_id: session_id,
+      session_id: this.state.session_id,
     };
 
     var data = new FormData();
