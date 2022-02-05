@@ -4,10 +4,23 @@ const rng = (lower, upper) =>
   Math.floor(lower + (upper + 1 - lower) * Math.random());
 class App extends Component {
   state = {
+    session_id: "46a160ab-5973-492b-a8b2-fbe17de7d972",
     todos: [],
   };
   componentDidMount() {
-    fetch(`https://jsonplaceholder.typicode.com/posts`)
+    var payload = {
+      active: true,
+      priority: 0,
+      session_id: session_id,
+    };
+
+    var data = new FormData();
+    data.append("json", JSON.stringify(payload));
+
+    fetch("https://nandan1996-todo-flask-api.herokuapp.com/get.todo", {
+      method: "POST",
+      body: data,
+    })
       .then((res) => res.json())
       .then((json) => {
         json.forEach((dict) => {
