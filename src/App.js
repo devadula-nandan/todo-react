@@ -1,26 +1,46 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@devadula-nandan 
+devadula-nandan
+/
+todo-react
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+2
+Insights
+Settings
+We found potential security vulnerabilities in your dependencies.
+Only the owner of this repository can see this message.
+
+todo-react/src/App.js /
+@devadula-nandan
+devadula-nandan Add files via upload
+Latest commit d1eb676 23 days ago
+ History
+ 1 contributor
+34 lines (34 sloc)  951 Bytes
+   
 import React, { Component } from "react";
 import Todo from "./Todo";
 const rng = (lower, upper) =>
   Math.floor(lower + (upper + 1 - lower) * Math.random());
 class App extends Component {
   state = {
-    session_id: "46a160ab-5973-492b-a8b2-fbe17de7d972",
     todos: [],
   };
   componentDidMount() {
-    var payload = {
-      active: true,
-      priority: 0,
-      session_id: this.state.session_id,
-    };
-
-    var data = new FormData();
-    data.append("json", JSON.stringify(payload));
-
-    fetch("https://nandan1996-todo-flask-api.herokuapp.com/get.todo", {
-      method: "POST",
-      body: data,
-    })
+    fetch(`https://jsonplaceholder.typicode.com/posts`)
       .then((res) => res.json())
       .then((json) => {
         json.forEach((dict) => {
@@ -45,3 +65,15 @@ class App extends Component {
   }
 }
 export default App;
+© 2022 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
