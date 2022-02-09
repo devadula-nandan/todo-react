@@ -2,16 +2,17 @@ import React, { Component } from "react";
 import Masonry from "react-masonry-css";
 
 const Card = (props) => {
+  const colors = ["#f2f2f2", "#ffff60", "#ffab5b", "#ff5656"];
   return (
     <div
       className={`card grid-item shadow`}
       style={{
-        backgroundColor: props.todo.bgColor,
+        backgroundColor: colors[props.todo.priority],
       }}
     >
       <div className="titleText">
         <p className="title m-0">{props.todo.title}</p>
-        <p className="text m-0">{props.todo.body}</p>
+        <p className="text m-0">{props.todo.text}</p>
       </div>
       <div className="controls">
         <button className="btn edit" title="edit">
@@ -24,15 +25,17 @@ const Card = (props) => {
           className="btn delete"
           onClick={() => {
             // msnry.remove(this.parent().parent());
-            props.removeTodo(props.index);
+            props.removeTodo(props.todo.id);
           }}
           title="delete"
         >
           <i className="fas fa-times-circle"></i>
         </button>
-        <div className="countDown" title="countDown">
-          <p className="countDownText m-0">9D 9H 9M</p>
-        </div>
+        {props.todo.deadline && (
+          <div className="countDown" title="countDown">
+            <p className="countDownText m-0">{props.todo.deadline}</p>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -41,10 +44,9 @@ const Card = (props) => {
 class Todo extends Component {
   render() {
     const { todos, removeTodo } = this.props;
-    const cards = todos.map((todo, index) => {
-      return (
-        <Card todo={todo} key={index} index={index} removeTodo={removeTodo} />
-      );
+    console.log(todos);
+    const cards = todos.map((todo) => {
+      return <Card todo={todo} key={todo.id} removeTodo={removeTodo} />;
     });
     const breakpointColumnsObj = {
       default: 4,
@@ -53,7 +55,7 @@ class Todo extends Component {
       500: 1,
     };
     return (
-      <div className="container-fluid px-4" style={{ maxWidth: 1200 }}>
+      <div className="container px-4">
         <Masonry
           breakpointCols={breakpointColumnsObj}
           className="my-masonry-grid"

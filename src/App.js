@@ -1,79 +1,69 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@devadula-nandan 
-devadula-nandan
-/
-todo-react
-Public
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-2
-Insights
-Settings
-We found potential security vulnerabilities in your dependencies.
-Only the owner of this repository can see this message.
-
-todo-react/src/App.js /
-@devadula-nandan
-devadula-nandan Add files via upload
-Latest commit d1eb676 23 days ago
- History
- 1 contributor
-34 lines (34 sloc)  951 Bytes
-   
 import React, { Component } from "react";
 import Todo from "./Todo";
-const rng = (lower, upper) =>
-  Math.floor(lower + (upper + 1 - lower) * Math.random());
+import AddBar from "./AddBar";
+// const rng = (lower, upper) =>
+//   Math.floor(lower + (upper + 1 - lower) * Math.random());
 class App extends Component {
   state = {
+    sessionId: "18f8c78d-531c-47a7-9413-97e835c295fa",
     todos: [],
   };
   componentDidMount() {
-    fetch(`https://jsonplaceholder.typicode.com/posts`)
+    fetch("https://nandan1996-todo-flask-api.herokuapp.com/get.todo", {
+      // Adding method type
+      method: "POST",
+
+      // Adding body or contents to send
+      body: JSON.stringify({
+        active: true,
+        session_id: this.state.sessionId,
+      }),
+
+      // Adding headers to the request
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
       .then((res) => res.json())
       .then((json) => {
-        json.forEach((dict) => {
-          dict.bgColor = `hsl(${rng(0, 360)}deg,${rng(20, 50)}%,${70}%)`;
-        });
-        this.setState({ todos: json });
+        const { message, results } = json;
+        console.log(message);
+        this.setState({ todos: results });
       });
   }
-  removeTodo = (index) => {
+  removeTodo = (id) => {
     const { todos } = this.state;
+    console.log(todos);
     this.setState({
-      todos: todos.filter((todo, i) => {
-        return index !== i;
+      todos: todos.filter((todo) => todo.id !== id),
+    });
+    fetch("https://nandan1996-todo-flask-api.herokuapp.com/delete.todo", {
+      // Adding method type
+      method: "POST",
+
+      // Adding body or contents to send
+      body: JSON.stringify({
+        id: id,
+        session_id: this.state.sessionId,
       }),
-    });
-    fetch(`https://jsonplaceholder.typicode.com/posts/${index}`, {
-      method: "DELETE",
-    });
+
+      // Adding headers to the request
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+      });
   };
   render() {
-    return <Todo todos={this.state.todos} removeTodo={this.removeTodo} />;
+    return (
+      <div className="container">
+        <AddBar />
+        <Todo todos={this.state.todos} removeTodo={this.removeTodo} />
+      </div>
+    );
   }
 }
 export default App;
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
