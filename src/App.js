@@ -33,7 +33,6 @@ class App extends Component {
   }
   removeTodo = (id) => {
     const { todos } = this.state;
-    console.log(todos);
     this.setState({
       todos: todos.filter((todo) => todo.id !== id),
     });
@@ -57,10 +56,42 @@ class App extends Component {
         console.log(json);
       });
   };
+  addTodo = (data) => {
+    const { todos } = this.state;
+
+    fetch("https://nandan1996-todo-flask-api.herokuapp.com/add.todo", {
+      // Adding method type
+      method: "POST",
+
+      // Adding body or contents to send
+      body: JSON.stringify({
+        deadline: data.deadline,
+        priority: data.priority,
+        session_id: data.sessionId,
+        text: data.text,
+        title: data.title,
+      }),
+
+      // Adding headers to the request
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        const { id } = json;
+        console.log(json);
+        data["id"] = id;
+        const newTodos = [data, ...todos];
+        this.setState({
+          todos: newTodos,
+        });
+      });
+  };
   render() {
     return (
       <div className="container">
-        <AddBar />
+        <AddBar sessionId={this.state.sessionId} addTodo={this.addTodo} />
         <Todo todos={this.state.todos} removeTodo={this.removeTodo} />
       </div>
     );
