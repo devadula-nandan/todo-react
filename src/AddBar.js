@@ -126,7 +126,7 @@ class AddBar extends Component {
                   type="submit"
                   onClick={(event) => {
                     event.preventDefault();
-                    const x = this.props.addTodo(this.state);
+                    this.props.addTodo(this.state);
                     this.setState({
                       text: "",
                       title: "",
