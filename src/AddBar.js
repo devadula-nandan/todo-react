@@ -55,7 +55,6 @@ class AddBar extends Component {
               id="secondary-outlined"
               defaultValue="0"
               autoComplete="off"
-              defaultChecked={this.state.priority === 0}
             />
             <label
               className="btn btn-outline-secondary rounded-start w-25 mb-3"
@@ -72,7 +71,6 @@ class AddBar extends Component {
               id="primary-outlined"
               defaultValue="1"
               autoComplete="off"
-              defaultChecked={this.state.priority === 1}
             />
             <label
               className="btn btn-outline-primary rounded-0 w-25 mb-3"
@@ -88,7 +86,6 @@ class AddBar extends Component {
               id="warning-outlined"
               defaultValue="2"
               autoComplete="off"
-              defaultChecked={this.state.priority === 2}
             />
             <label
               className="btn btn-outline-warning rounded-0 w-25 mb-3"
@@ -104,7 +101,6 @@ class AddBar extends Component {
               id="danger-outlined"
               defaultValue="3"
               autoComplete="off"
-              defaultChecked={this.state.priority === 3}
             />
             <label
               className="btn btn-outline-danger rounded-end w-25 mb-3"
