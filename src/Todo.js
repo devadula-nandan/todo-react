@@ -11,8 +11,10 @@ const Card = (props) => {
       }}
     >
       <div className="titleText">
-        <p className="title m-0">{props.todo.title}</p>
-        <p className="text m-0">{props.todo.text}</p>
+        <pre className="title m-0">{props.todo.title}</pre>
+        <pre contentEditable="true" className="text m-0">
+          {props.todo.text}
+        </pre>
       </div>
       <div className="controls">
         <button className="btn edit p-3 rounded-circle" title="edit">

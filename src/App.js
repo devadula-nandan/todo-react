@@ -98,6 +98,7 @@ class App extends Component {
         this.setState({
           todos: newTodos,
         });
+        return true;
       });
   };
   render() {

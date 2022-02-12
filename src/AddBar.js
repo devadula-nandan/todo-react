@@ -34,6 +34,7 @@ class AddBar extends Component {
               onChange={this.handleInputChange}
               placeholder="Add Todo Title"
               className="form-control mb-3"
+              value={this.state.title}
             ></input>
             <textarea
               className="form-control mb-3"
@@ -42,6 +43,7 @@ class AddBar extends Component {
               name="text"
               onChange={this.handleInputChange}
               placeholder="Add Todo Text"
+              value={this.state.text}
             ></textarea>
           </div>
           <div className="col-md-6 mb-3">
@@ -53,7 +55,7 @@ class AddBar extends Component {
               id="secondary-outlined"
               defaultValue="0"
               autoComplete="off"
-              defaultChecked
+              defaultChecked={this.state.priority === 0}
             />
             <label
               className="btn btn-outline-secondary rounded-start w-25 mb-3"
@@ -70,6 +72,7 @@ class AddBar extends Component {
               id="primary-outlined"
               defaultValue="1"
               autoComplete="off"
+              defaultChecked={this.state.priority === 1}
             />
             <label
               className="btn btn-outline-primary rounded-0 w-25 mb-3"
@@ -85,6 +88,7 @@ class AddBar extends Component {
               id="warning-outlined"
               defaultValue="2"
               autoComplete="off"
+              defaultChecked={this.state.priority === 2}
             />
             <label
               className="btn btn-outline-warning rounded-0 w-25 mb-3"
@@ -100,6 +104,7 @@ class AddBar extends Component {
               id="danger-outlined"
               defaultValue="3"
               autoComplete="off"
+              defaultChecked={this.state.priority === 3}
             />
             <label
               className="btn btn-outline-danger rounded-end w-25 mb-3"
@@ -115,7 +120,7 @@ class AddBar extends Component {
                   onChange={this.handleInputChange}
                   id="schedule"
                   name="deadline"
-                  defaultValue={this.state.deadline}
+                  value={this.state.deadline}
                   min="2021-06-21T00:00"
                   max="2031-06-21T00:00"
                 ></input>
@@ -125,7 +130,13 @@ class AddBar extends Component {
                   type="submit"
                   onClick={(event) => {
                     event.preventDefault();
-                    this.props.addTodo(this.state);
+                    const x = this.props.addTodo(this.state);
+                    this.setState({
+                      text: "",
+                      title: "",
+                      priority: 0,
+                      deadline: "",
+                    });
                   }}
                   className="btn btn-secondary w-100 rounded"
                 >

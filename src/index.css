@@ -13,6 +13,9 @@ body {
   box-sizing: border-box;
   font-family: "Google Sans", Roboto, Arial, sans-serif;
 }
+pre {
+  white-space: pre-wrap;
+}
 
 .card {
   border-radius: 8px;
