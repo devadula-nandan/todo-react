@@ -15,14 +15,14 @@ const Card = (props) => {
         <p className="text m-0">{props.todo.text}</p>
       </div>
       <div className="controls">
-        <button className="btn edit" title="edit">
+        <button className="btn edit p-3 rounded-circle" title="edit">
           <i className="fas fa-pen-square"></i>
         </button>
-        <button className="btn complete" title="complete">
+        <button className="btn complete p-3 rounded-circle" title="complete">
           <i className="fas fa-check-square"></i>
         </button>
         <button
-          className="btn delete"
+          className="btn delete p-3 rounded-circle"
           onClick={() => {
             // msnry.remove(this.parent().parent());
             props.removeTodo(props.todo.id);
@@ -44,7 +44,6 @@ const Card = (props) => {
 class Todo extends Component {
   render() {
     const { todos, removeTodo } = this.props;
-    console.log(todos);
     const cards = todos.map((todo) => {
       return <Card todo={todo} key={todo.id} removeTodo={removeTodo} />;
     });

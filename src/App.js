@@ -24,7 +24,13 @@ class App extends Component {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Something went wrong");
+        }
+      })
       .then((json) => {
         const { message, results } = json;
         console.log(message);
@@ -77,10 +83,16 @@ class App extends Component {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Something went wrong");
+        }
+      })
       .then((json) => {
-        const { id } = json;
         console.log(json);
+        const { id } = json;
         data["id"] = id;
         const newTodos = [data, ...todos];
         this.setState({

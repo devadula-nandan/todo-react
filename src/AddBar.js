@@ -56,7 +56,7 @@ class AddBar extends Component {
               defaultChecked
             />
             <label
-              className="btn btn-outline-secondary rounded w-25 mb-3"
+              className="btn btn-outline-secondary rounded-start w-25 mb-3"
               htmlFor="secondary-outlined"
             >
               none
@@ -72,7 +72,7 @@ class AddBar extends Component {
               autoComplete="off"
             />
             <label
-              className="btn btn-outline-primary rounded w-25 mb-3"
+              className="btn btn-outline-primary rounded-0 w-25 mb-3"
               htmlFor="primary-outlined"
             >
               low
@@ -87,7 +87,7 @@ class AddBar extends Component {
               autoComplete="off"
             />
             <label
-              className="btn btn-outline-warning rounded w-25 mb-3"
+              className="btn btn-outline-warning rounded-0 w-25 mb-3"
               htmlFor="warning-outlined"
             >
               mid
@@ -102,7 +102,7 @@ class AddBar extends Component {
               autoComplete="off"
             />
             <label
-              className="btn btn-outline-danger rounded w-25 mb-3"
+              className="btn btn-outline-danger rounded-end w-25 mb-3"
               htmlFor="danger-outlined"
             >
               high
@@ -110,12 +110,12 @@ class AddBar extends Component {
             <div className="row">
               <div className="col-md-7 mb-3">
                 <input
-                  className="h-100 w-100 border text-secondary rounded outline-none px-3 py-2"
+                  className="h-100 form-control w-100 border text-secondary rounded outline-none"
                   type="datetime-local"
                   onChange={this.handleInputChange}
                   id="schedule"
                   name="deadline"
-                  defaultValue="2021-06-21T00:00"
+                  defaultValue={this.state.deadline}
                   min="2021-06-21T00:00"
                   max="2031-06-21T00:00"
                 ></input>
