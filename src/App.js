@@ -92,9 +92,10 @@ class App extends Component {
       })
       .then((json) => {
         console.log(json);
-        const { id, deadline } = json;
+        const { id } = json;
         data["id"] = id;
-        data["deadline"] = deadline;
+        let date = new Date(data.deadline);
+        data.deadline = date.toString();
         const newTodos = [data, ...todos];
         this.setState({
           todos: newTodos,
