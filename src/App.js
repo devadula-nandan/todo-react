@@ -92,8 +92,9 @@ class App extends Component {
       })
       .then((json) => {
         console.log(json);
-        const { id } = json;
+        const { id, deadline } = json;
         data["id"] = id;
+        data["deadline"] = deadline;
         const newTodos = [data, ...todos];
         this.setState({
           todos: newTodos,
