@@ -2,40 +2,57 @@ import React, { Component } from "react";
 import Masonry from "react-masonry-css";
 
 const Card = (props) => {
-  const colors = ["#f2f2f2", "#ffff60", "#ffab5b", "#ff5656"];
+  const colors = ["#f3f4f6", "#fde047", "#fdba74", "#f87171"];
   return (
     <div
-      className={`card grid-item shadow`}
+      className={`break-inside p-3 rounded shadow-lg mb-5`}
       style={{
         backgroundColor: colors[props.todo.priority],
       }}
     >
-      <div className="titleText">
-        <pre className="title m-0">{props.todo.title}</pre>
-        <pre contentEditable="true" className="text m-0">
-          {props.todo.text}
-        </pre>
+      <div className="title-text mb-2">
+        <pre className="mb-2 font-bold">{props.todo.title}</pre>
+        <div className="">
+          <pre className="whitespace-pre-wrap" contentEditable="true">
+            {props.todo.text}
+          </pre>
+        </div>
       </div>
-      <div className="controls">
-        <button className="btn edit p-3 rounded-circle" title="edit">
-          <i className="fas fa-pen-square"></i>
-        </button>
-        <button className="btn complete p-3 rounded-circle" title="complete">
-          <i className="fas fa-check-square"></i>
-        </button>
-        <button
-          className="btn delete p-3 rounded-circle"
-          onClick={() => {
-            // msnry.remove(this.parent().parent());
-            props.removeTodo(props.todo.id);
-          }}
-          title="delete"
-        >
-          <i className="fas fa-times-circle"></i>
-        </button>
+      <div className="grid grid-cols-3">
+        <div className="col-span-2">
+          <button
+            className="p-2 h-9 w-9 inline-flex rounded-full transition-all active:bg-black/20 hover:bg-black/10 hover:shadow-md"
+            title="edit"
+          >
+            <i className="fas m-auto fa-pen-square"></i>
+          </button>
+          <button
+            className="p-2 h-9 w-9 inline-flex rounded-full transition-all active:bg-black/20 hover:bg-black/10 hover:shadow-md"
+            title="complete"
+          >
+            <i className="fas m-auto fa-check-square"></i>
+          </button>
+          <button
+            className="p-2 h-9 w-9 inline-flex rounded-full transition-all active:bg-black/20 hover:bg-black/10 hover:shadow-md"
+            onClick={() => {
+              // msnry.remove(this.parent().parent());
+              props.removeTodo(props.todo.id);
+            }}
+            title="delete"
+          >
+            <i className="fas m-auto fa-times-circle"></i>
+          </button>
+        </div>
+
         {props.todo.deadline && (
-          <div className="countDown" title="countDown">
-            <p className="countDownText m-0">{props.todo.deadline}</p>
+          <div className="flex" title="countDown">
+            <p className="text-xs m-auto bg-black/10 px-1 rounded-md py-0.5">{`${
+              props.todo.deadline.split(" ")[1]
+            } ${props.todo.deadline.split(" ")[2]} ${
+              props.todo.deadline.split(" ")[3]
+            } ${props.todo.deadline.split(" ")[4].split(":")[0]}:${
+              props.todo.deadline.split(" ")[4].split(":")[1]
+            }`}</p>
           </div>
         )}
       </div>
@@ -56,14 +73,8 @@ class Todo extends Component {
       500: 1,
     };
     return (
-      <div className="container px-4">
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-        >
-          {cards}
-        </Masonry>
+      <div className="md:container md:mx-auto masonry sm:masonry-sm md:masonry-md lg:masonry-lg">
+        {cards}
       </div>
     );
   }
