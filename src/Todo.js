@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Masonry from "react-masonry-css";
 
 const Card = (props) => {
   const colors = ["#f3f4f6", "#fde047", "#fdba74", "#f87171"];
@@ -66,12 +65,6 @@ class Todo extends Component {
     const cards = todos.map((todo) => {
       return <Card todo={todo} key={todo.id} removeTodo={removeTodo} />;
     });
-    const breakpointColumnsObj = {
-      default: 4,
-      1100: 3,
-      767: 2,
-      500: 1,
-    };
     return (
       <div className="md:container md:mx-auto masonry sm:masonry-sm md:masonry-md lg:masonry-lg">
         {cards}
