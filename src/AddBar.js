@@ -51,7 +51,7 @@ class AddBar extends Component {
             <div className="grid grid-cols-4 gap-2 py-0.5">
               <input
                 type="radio"
-                className="text-gray-300 h-12 w-12 mx-auto focus:ring-gray-200"
+                className="text-gray-300 h-12 w-full rounded checked:bg-none mx-auto focus:ring-gray-200"
                 name="priority"
                 onChange={this.handleInputChange}
                 id="secondary-outlined"
@@ -61,7 +61,7 @@ class AddBar extends Component {
 
               <input
                 type="radio"
-                className="text-yellow-300 h-12 w-12 mx-auto items-center focus:ring-yellow-200"
+                className="text-yellow-300 h-12 w-full rounded checked:bg-none mx-auto items-center focus:ring-yellow-200"
                 name="priority"
                 onChange={this.handleInputChange}
                 id="primary-outlined"
@@ -70,7 +70,7 @@ class AddBar extends Component {
               />
               <input
                 type="radio"
-                className="text-orange-300 h-12 w-12 mx-auto items-center focus:ring-orange-200"
+                className="text-orange-300 h-12 w-full rounded checked:bg-none mx-auto items-center focus:ring-orange-200"
                 name="priority"
                 onChange={this.handleInputChange}
                 id="warning-outlined"
@@ -79,7 +79,7 @@ class AddBar extends Component {
               />
               <input
                 type="radio"
-                className="text-red-300 h-12 w-12 mx-auto items-center focus:ring-red-200"
+                className="text-red-300 h-12 w-full rounded checked:bg-none mx-auto items-center focus:ring-red-200"
                 name="priority"
                 onChange={this.handleInputChange}
                 id="danger-outlined"
