@@ -25,3 +25,27 @@
     }
   }
 }
+input[type="datetime-local"] {
+  position: relative;
+  padding: 10px;
+}
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  color: transparent;
+  background: none;
+  z-index: 1;
+}
+input[type="datetime-local"]:before {
+  color: transparent;
+  background: none;
+  display: block;
+  font-family: "FontAwesome";
+  background-image: url(../public/images/date-picker.svg);
+  content: "";
+  /* This is the calendar icon in FontAwesome */
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  color: #999;
+}

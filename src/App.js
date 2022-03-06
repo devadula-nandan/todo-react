@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import Todo from "./Todo";
 import AddBar from "./AddBar";
-// const rng = (lower, upper) =>
-//   Math.floor(lower + (upper + 1 - lower) * Math.random());
+// import { useCookies } from "react-cookie"; for function bases
+import { withCookies } from "react-cookie";
+import Login from "./Login";
+
 class App extends Component {
   state = {
-    sessionId: "62178714-f4c0-4b45-90ef-4e3f9faf8c34",
     todos: [],
   };
   componentDidMount() {
     fetch("https://nandan1996-todo-flask-api.herokuapp.com/get.todo", {
       // Adding method type
       method: "POST",
+      credentials: "include",
 
       // Adding body or contents to send
       body: JSON.stringify({
@@ -64,6 +66,20 @@ class App extends Component {
   };
   addTodo = (data) => {
     const { todos } = this.state;
+    console.log(data.deadline);
+    let x = data.deadline;
+    if (data.deadline) {
+      data.deadline = new Date(data.deadline).toString();
+    }
+    const newTodos = [data, ...todos];
+    this.setState({
+      todos: newTodos,
+    });
+    if (data.deadline === null) {
+      data.deadline = "";
+    } else {
+      data.deadline = x;
+    }
 
     fetch("https://nandan1996-todo-flask-api.herokuapp.com/add.todo", {
       // Adding method type
@@ -94,22 +110,18 @@ class App extends Component {
         console.log(json);
         const { id } = json;
         data["id"] = id;
-        let date = new Date(data.deadline);
-        data.deadline = date.toString();
-        const newTodos = [data, ...todos];
-        this.setState({
-          todos: newTodos,
-        });
+
         return true;
       });
   };
   render() {
     return (
       <div className="md:container md:mx-auto px-3 sm:px-7 pt-4 lg:px-8">
+        <Login />
         <AddBar sessionId={this.state.sessionId} addTodo={this.addTodo} />
         <Todo todos={this.state.todos} removeTodo={this.removeTodo} />
       </div>
     );
   }
 }
-export default App;
+export default withCookies(App);

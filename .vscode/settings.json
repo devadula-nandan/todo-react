@@ -1,0 +1,4 @@
+{
+  "editor.renderLineHighlight": "gutter",
+  "editor.renderLineHighlightOnlyWhenFocus": true
+}
