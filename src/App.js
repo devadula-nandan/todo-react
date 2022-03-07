@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Todo from "./Todo";
 import AddBar from "./AddBar";
 // import { useCookies } from "react-cookie"; for function bases
-import { withCookies } from "react-cookie";
+// import { withCookies } from "react-cookie";
 import Login from "./Login";
 
 class App extends Component {
@@ -124,4 +124,4 @@ class App extends Component {
     );
   }
 }
-export default withCookies(App);
+export default App;

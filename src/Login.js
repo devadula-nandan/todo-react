@@ -1,4 +1,3 @@
-// create a login form with username and password fields and a submit button and a link to the register page
 import React, { Component } from "react";
 
 class Login extends Component {
@@ -11,6 +10,41 @@ class Login extends Component {
       [e.target.name]: e.target.value,
     });
   };
+  handleLogout = () => {
+    fetch("https://nandan1996-todo-flask-api.herokuapp.com/logout", {
+      // Adding method type
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+      });
+  };
+  handleRegister = (e) => {
+    e.preventDefault();
+    fetch("https://nandan1996-todo-flask-api.herokuapp.com/signup", {
+      // Adding method type
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password,
+        is_admin: false,
+        name: "",
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+      });
+  };
   handleSubmit = (e) => {
     e.preventDefault();
     const { username, password } = this.state;
@@ -18,6 +52,7 @@ class Login extends Component {
       fetch("https://nandan1996-todo-flask-api.herokuapp.com/login", {
         // Adding method type
         method: "POST",
+        credentials: "include",
         // Adding body or contents to send
         body: JSON.stringify({
           username: username,
@@ -26,11 +61,12 @@ class Login extends Component {
 
         // Adding headers to the request
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
+          "Content-Type": "application/json",
         },
       })
         .then((res) => {
           if (res.ok) {
+            console.log(res.headers.get("Set-Cookie"));
             return res.json();
           } else {
             throw new Error("Something went wrong");
@@ -63,6 +99,9 @@ class Login extends Component {
           <br />
           <button className="btn" type="submit" value="Login" onClick={this.handleSubmit}>
             login
+          </button>
+          <button value="logout" onClick={this.handleLogout}>
+            logout
           </button>
         </form>
       </div>
