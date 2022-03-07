@@ -24,27 +24,6 @@ class Login extends Component {
         console.log(json);
       });
   };
-  handleRegister = (e) => {
-    e.preventDefault();
-    fetch("https://nandan1996-todo-flask-api.herokuapp.com/signup", {
-      // Adding method type
-      method: "POST",
-      credentials: "include",
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
-        is_admin: false,
-        name: "",
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-      });
-  };
   handleSubmit = (e) => {
     e.preventDefault();
     const { username, password } = this.state;
