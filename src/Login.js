@@ -67,14 +67,29 @@ class LoginCard extends Component {
   render() {
     const { username, password } = this.state;
     return (
-      <div className="grid grid-cols-1 gap-2 h-fit">
-        <div className="grid grid-cols-1 gap-2 h-fit">
-          <input type="text" name="username" onChange={this.handleChange} placeholder="Username" className="bg-lime-100 p-3 rounded-md shadow-sm focus:border-lime-800 focus:ring-0 text-lime-900 placeholder:text-lime-600 border-lime-200 border-2" value={username} />
-          <input type="text" name="password" onChange={this.handleChange} placeholder="Password" className="bg-lime-100 p-3 rounded-md shadow-sm focus:border-lime-800 focus:ring-0 text-lime-900 placeholder:text-lime-600 border-lime-200 border-2" value={password} />
-          <button onClick={this.handleSubmit} className="bg-lime-100 p-3 rounded-md shadow-sm focus:border-lime-800 focus:ring-0 text-lime-900 placeholder:text-lime-600 border-lime-200 border-2">
-            {" "}
-            Login{" "}
-          </button>
+      // create a login card with a form to login and a button to logout in tailwind css
+      <div className="flex flex-col items-center justify-center h-screen">
+        <div className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+              Username
+            </label>
+            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" name="username" value={username} onChange={this.handleChange} />
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+              Password
+            </label>
+            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" name="password" value={password} onChange={this.handleChange} />
+          </div>
+          <div className="flex items-center justify-between">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={this.handleSubmit}>
+              Sign In
+            </button>
+            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={this.handleLogout}>
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     );
