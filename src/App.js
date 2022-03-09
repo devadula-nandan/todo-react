@@ -65,6 +65,11 @@ class App extends Component {
         console.log(json);
       });
   };
+  logIn = (value) => {
+    this.setState({
+      isLoggedIn: value,
+    });
+  };
   addTodo = (data) => {
     const { todos } = this.state;
     console.log(data.deadline);
@@ -124,7 +129,7 @@ class App extends Component {
             <AddBar addTodo={this.addTodo} />
           </div>
         )}
-        {this.state.isLoggedIn === false && <Login isLoggedIn={this.state.isLoggedIn} />}
+        {this.state.isLoggedIn === false && <Login isLoggedIn={this.logIn} />}
       </div>
     );
   }

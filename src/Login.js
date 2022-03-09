@@ -56,7 +56,7 @@ class LoginCard extends Component {
         .then((json) => {
           const { message } = json;
           console.log(message);
-          this.props.isLoggedIn = true;
+          this.props.logIn;
           this.setState({
             username: "",
             password: "",
@@ -66,6 +66,7 @@ class LoginCard extends Component {
   };
 
   render() {
+    const { logIn } = this.props.logIn;
     const { username, password } = this.state;
     return (
       // create a login card with a form to login and a button to logout in tailwind css
@@ -84,7 +85,7 @@ class LoginCard extends Component {
             <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" name="password" value={password} onChange={this.handleChange} />
           </div>
           <div className="flex items-center justify-between">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={this.handleSubmit}>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={(this.handleSubmit, logIn(true))}>
               Sign In
             </button>
             <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={this.handleLogout}>
