@@ -8,7 +8,6 @@ class AddBar extends Component {
       title: "",
       priority: 0,
       deadline: null,
-      sessionId: props.sessionId,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
