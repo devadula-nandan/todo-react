@@ -47,7 +47,6 @@ class LoginCard extends Component {
       })
         .then((res) => {
           if (res.ok) {
-            console.log(res.headers.get("Set-Cookie"));
             return res.json();
           } else {
             throw new Error("Something went wrong");
