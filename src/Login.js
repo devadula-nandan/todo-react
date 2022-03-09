@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 
-class Login extends Component {
+class LoginCard extends Component {
   state = {
     username: "",
     password: "",
   };
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
+
   handleLogout = () => {
     fetch("https://nandan1996-todo-flask-api.herokuapp.com/logout", {
       // Adding method type
@@ -61,30 +63,21 @@ class Login extends Component {
         });
     }
   };
+
   render() {
     const { username, password } = this.state;
     return (
-      <div className="login">
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Username:
-            <input type="text" name="username" value={username} onChange={this.handleChange} />
-          </label>
-          <br />
-          <label>
-            Password:
-            <input type="password" name="password" value={password} onChange={this.handleChange} />
-          </label>
-          <br />
-          <button className="btn" type="submit" value="Login" onClick={this.handleSubmit}>
-            login
+      <div className="grid grid-cols-1 gap-2 h-fit">
+        <div className="grid grid-cols-1 gap-2 h-fit">
+          <input type="text" name="username" onChange={this.handleChange} placeholder="Username" className="bg-lime-100 p-3 rounded-md shadow-sm focus:border-lime-800 focus:ring-0 text-lime-900 placeholder:text-lime-600 border-lime-200 border-2" value={username} />
+          <input type="text" name="password" onChange={this.handleChange} placeholder="Password" className="bg-lime-100 p-3 rounded-md shadow-sm focus:border-lime-800 focus:ring-0 text-lime-900 placeholder:text-lime-600 border-lime-200 border-2" value={password} />
+          <button onClick={this.handleSubmit} className="bg-lime-100 p-3 rounded-md shadow-sm focus:border-lime-800 focus:ring-0 text-lime-900 placeholder:text-lime-600 border-lime-200 border-2">
+            {" "}
+            Login{" "}
           </button>
-          <button value="logout" onClick={this.handleLogout}>
-            logout
-          </button>
-        </form>
+        </div>
       </div>
     );
   }
 }
-export default Login;
+export default LoginCard;
