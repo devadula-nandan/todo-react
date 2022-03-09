@@ -62,7 +62,7 @@ class LoginCard extends Component {
             username: "",
             password: "",
           });
-          this.props.isLoggedIn = true;
+          this.props.isLoggedIn(true);
         });
     }
   };
