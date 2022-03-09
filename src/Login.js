@@ -64,7 +64,7 @@ class LoginCard extends Component {
   };
 
   render() {
-    const { logIn } = this.props.logIn;
+    const { logIn } = this.props;
     const { username, password } = this.state;
     return (
       // create a login card with a form to login and a button to logout in tailwind css
