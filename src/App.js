@@ -129,7 +129,7 @@ class App extends Component {
             <AddBar addTodo={this.addTodo} />
           </div>
         )}
-        {this.state.isLoggedIn === false && <Login isLoggedIn={logIn} />}
+        {this.state.isLoggedIn === false && <Login isLoggedIn={this.logIn} />}
       </div>
     );
   }
