@@ -6,7 +6,6 @@ class LoginCard extends Component {
     this.state = {
       username: "",
       password: "",
-      isLoggedIn: props.isLoggedIn,
     };
   }
 
@@ -62,8 +61,8 @@ class LoginCard extends Component {
           this.setState({
             username: "",
             password: "",
-            isLoggedIn: true,
           });
+          this.props.isLoggedIn = true;
         });
     }
   };
