@@ -56,6 +56,7 @@ class LoginCard extends Component {
         .then((json) => {
           const { message } = json;
           console.log(message);
+          this.props.isLoggedIn = true;
           this.setState({
             username: "",
             password: "",

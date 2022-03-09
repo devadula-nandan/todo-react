@@ -7,6 +7,7 @@ import Login from "./Login";
 
 class App extends Component {
   state = {
+    isLoggedIn: false,
     todos: [],
   };
   componentDidMount() {
@@ -18,7 +19,6 @@ class App extends Component {
       // Adding body or contents to send
       body: JSON.stringify({
         active: true,
-        session_id: this.state.sessionId,
       }),
 
       // Adding headers to the request
@@ -118,9 +118,13 @@ class App extends Component {
   render() {
     return (
       <div className="md:container md:mx-auto px-3 sm:px-7 pt-4 lg:px-8">
-        <Login />
-        <AddBar addTodo={this.addTodo} />
-        <Todo todos={this.state.todos} removeTodo={this.removeTodo} />
+        {this.state.isLoggedIn && (
+          <div>
+            <Todo todos={this.state.todos} removeTodo={this.removeTodo} />
+            <AddBar addTodo={this.addTodo} />
+          </div>
+        )}
+        {this.state.isLoggedIn === false && <Login />}
       </div>
     );
   }
