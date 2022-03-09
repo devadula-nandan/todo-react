@@ -47,6 +47,7 @@ class App extends Component {
     fetch("https://nandan1996-todo-flask-api.herokuapp.com/delete.todo", {
       // Adding method type
       method: "POST",
+      credentials: "include",
 
       // Adding body or contents to send
       body: JSON.stringify({
@@ -84,12 +85,12 @@ class App extends Component {
     fetch("https://nandan1996-todo-flask-api.herokuapp.com/add.todo", {
       // Adding method type
       method: "POST",
+      credentials: "include",
 
       // Adding body or contents to send
       body: JSON.stringify({
         deadline: data.deadline,
         priority: data.priority,
-        session_id: data.sessionId,
         text: data.text,
         title: data.title,
       }),
