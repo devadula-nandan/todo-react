@@ -119,7 +119,7 @@ class App extends Component {
     return (
       <div className="md:container md:mx-auto px-3 sm:px-7 pt-4 lg:px-8">
         <Login />
-        <AddBar sessionId={this.state.sessionId} addTodo={this.addTodo} />
+        <AddBar addTodo={this.addTodo} />
         <Todo todos={this.state.todos} removeTodo={this.removeTodo} />
       </div>
     );
