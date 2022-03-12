@@ -30,8 +30,8 @@ class App extends Component {
         if (res.ok) {
           return res.json();
         } else {
-          throw new Error("Something went wrong");
           alert(res.status, res.statusText, res.url, res.ok, res.type, res.body, res.bodyUsed);
+          throw new Error("Something went wrong");
         }
       })
       .then((json) => {
