@@ -4,10 +4,11 @@ import AddBar from "./AddBar";
 // import { useCookies } from "react-cookie"; for function bases
 // import { withCookies } from "react-cookie";
 import Login from "./Login";
+import ResponsiveNavBar from "./Nav";
 
 class App extends Component {
   state = {
-    isLoggedIn: false,
+    session: localStorage.getItem("session"),
     todos: [],
   };
   componentDidMount() {
@@ -65,11 +66,7 @@ class App extends Component {
         console.log(json);
       });
   };
-  logIn = (value) => {
-    this.setState({
-      isLoggedIn: value,
-    });
-  };
+
   addTodo = (data) => {
     const { todos } = this.state;
     console.log(data.deadline);
@@ -122,15 +119,17 @@ class App extends Component {
   };
   render() {
     return (
-      <div className="md:container md:mx-auto px-3 sm:px-7 pt-4 lg:px-8">
-        {this.state.isLoggedIn && (
-          <div>
-            <Todo todos={this.state.todos} removeTodo={this.removeTodo} />
-            <AddBar addTodo={this.addTodo} />
-          </div>
-        )}
-        {this.state.isLoggedIn === false && <Login isLoggedIn={this.logIn} />}
-      </div>
+      <>
+        <ResponsiveNavBar />
+        <div className="md:container md:mx-auto px-3 sm:px-7 pt-4 lg:px-8">
+          {this.state.session && (
+            <div>
+              <AddBar addTodo={this.addTodo} />
+              <Todo todos={this.state.todos} removeTodo={this.removeTodo} />
+            </div>
+          )}
+        </div>
+      </>
     );
   }
 }

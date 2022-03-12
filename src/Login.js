@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ResponsiveNavBar from "./Nav";
 
 class LoginCard extends Component {
   constructor(props) {
@@ -9,26 +10,19 @@ class LoginCard extends Component {
     };
   }
 
+  componentDidMount() {
+    const session = localStorage.getItem("session");
+    if (session) {
+      window.location.href = "/";
+    }
+  }
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
 
-  handleLogout = () => {
-    fetch("https://nandan1996-todo-flask-api.herokuapp.com/logout", {
-      // Adding method type
-      method: "DELETE",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-      });
-  };
   handleSubmit = (e) => {
     e.preventDefault();
     const { username, password } = this.state;
@@ -62,7 +56,8 @@ class LoginCard extends Component {
             username: "",
             password: "",
           });
-          this.props.isLoggedIn(true);
+          localStorage.setItem("session", true);
+          window.location.href = "/";
         });
     }
   };
@@ -71,30 +66,32 @@ class LoginCard extends Component {
     const { username, password } = this.state;
     return (
       // create a login card with a form to login and a button to logout in tailwind css
-      <div className="flex flex-col items-center justify-center h-screen">
-        <div className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-              Username
-            </label>
-            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" name="username" value={username} onChange={this.handleChange} />
-          </div>
-          <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-              Password
-            </label>
-            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" name="password" value={password} onChange={this.handleChange} />
-          </div>
-          <div className="flex items-center justify-between">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={this.handleSubmit}>
-              Sign In
-            </button>
-            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={this.handleLogout}>
-              Logout
-            </button>
-          </div>
+      <>
+        <ResponsiveNavBar />
+        <div className="flex flex-col items-center justify-center h-screen">
+          <form>
+            <div className="bg-lime-200 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+                  Username
+                </label>
+                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" name="username" value={username} onChange={this.handleChange} />
+              </div>
+              <div className="mb-6">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                  Password
+                </label>
+                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" name="password" value={password} onChange={this.handleChange} />
+              </div>
+              <div className="flex items-center justify-center">
+                <button type="submit" className="bg-lime-500 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={this.handleSubmit}>
+                  Login
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
-      </div>
+      </>
     );
   }
 }
