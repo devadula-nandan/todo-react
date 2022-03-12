@@ -9,7 +9,7 @@ const handleLogout = () => {
   })
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
+      alert(json);
     });
   localStorage.removeItem("session");
 };

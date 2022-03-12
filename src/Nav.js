@@ -13,7 +13,7 @@ export const ResponsiveNavBar = () => {
 
 const pages = [];
 localStorage.getItem("session") ? pages.push("profile", "logout") : pages.push("login");
-console.log(pages);
+alert(pages);
 const navLinks = pages.map((page) => (
   <Link to={`/${page.toLowerCase()}`} key={page}>
     {" "}

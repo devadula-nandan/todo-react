@@ -35,7 +35,7 @@ class App extends Component {
       })
       .then((json) => {
         const { message, results } = json;
-        console.log(message);
+        alert(message);
         this.setState({ todos: results });
       });
   }
@@ -62,13 +62,13 @@ class App extends Component {
     })
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
+        alert(json);
       });
   };
 
   addTodo = (data) => {
     const { todos } = this.state;
-    console.log(data.deadline);
+    alert(data.deadline);
     let x = data.deadline;
     if (data.deadline) {
       data.deadline = new Date(data.deadline).toString();
@@ -109,7 +109,7 @@ class App extends Component {
         }
       })
       .then((json) => {
-        console.log(json);
+        alert(json);
         const { id } = json;
         data["id"] = id;
 
