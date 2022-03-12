@@ -1,5 +1,3 @@
-import React, { Component } from "react";
-import ResponsiveNavBar from "./Nav";
 const handleLogout = () => {
   fetch("https://nandan1996-todo-flask-api.herokuapp.com/logout", {
     // Adding method type

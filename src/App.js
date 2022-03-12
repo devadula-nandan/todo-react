@@ -3,7 +3,6 @@ import Todo from "./Todo";
 import AddBar from "./AddBar";
 // import { useCookies } from "react-cookie"; for function bases
 // import { withCookies } from "react-cookie";
-import Login from "./Login";
 import ResponsiveNavBar from "./Nav";
 
 class App extends Component {
