@@ -1,6 +1,7 @@
 import Todo from "./Todo";
 import AddBar from "./AddBar";
 import ResponsiveNavBar from "./Nav";
+import { useState, useEffect } from "react";
 
 export default function App() {
   const [isLogged, setIsLogged] = useState(false);
