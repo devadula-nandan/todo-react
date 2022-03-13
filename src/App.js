@@ -2,15 +2,17 @@ import React, { Component } from "react";
 import Todo from "./Todo";
 import AddBar from "./AddBar";
 // import { useCookies } from "react-cookie"; for function bases
-// import { withCookies } from "react-cookie";
+import { withCookies } from "react-cookie";
 import ResponsiveNavBar from "./Nav";
 
 class App extends Component {
   state = {
-    session: localStorage.getItem("session"),
+    token: this.props.cookies.get("token") || "",
     todos: [],
   };
   componentDidMount() {
+    const { token } = this.state;
+    console.log(token);
     fetch("https://nandan1996-todo-flask-api.herokuapp.com/get.todo", {
       // Adding method type
       method: "POST",
@@ -133,4 +135,4 @@ class App extends Component {
     );
   }
 }
-export default App;
+export default withCookies(App);
