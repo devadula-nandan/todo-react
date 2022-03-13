@@ -19,6 +19,8 @@ export default function App() {
         const { message } = json;
         if (message === "True") {
           setIsLogged(true);
+        } else {
+          window.location.href = "/login";
         }
       });
   };
