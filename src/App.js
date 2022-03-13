@@ -28,17 +28,30 @@ export default function App() {
 
   useEffect(() => {
     if (isLogged) {
-      fetch("https://nandan1996-todo-flask-api.herokuapp.com/todos", {
-        method: "GET",
+      fetch("https://nandan1996-todo-flask-api.herokuapp.com/get.todo", {
+        // Adding method type
+        method: "POST",
         credentials: "include",
+        // Adding body or contents to send
+        body: JSON.stringify({
+          active: true,
+        }),
+        // Adding headers to the request
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            throw new Error("Something went wrong");
+          }
+        })
         .then((json) => {
-          const { todos } = json;
-          setTodos(todos);
+          const { message, results } = json;
+          console.log(message);
+          setTodos({ todos: results });
         });
     }
   }, [isLogged]);
