@@ -27,18 +27,20 @@ export default function App() {
   verifySession();
 
   useEffect(() => {
-    fetch("https://nandan1996-todo-flask-api.herokuapp.com/todos", {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        const { todos } = json;
-        setTodos(todos);
-      });
+    if (isLogged) {
+      fetch("https://nandan1996-todo-flask-api.herokuapp.com/todos", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          const { todos } = json;
+          setTodos(todos);
+        });
+    }
   }, [isLogged]);
 
   const addTodo = (data) => {
