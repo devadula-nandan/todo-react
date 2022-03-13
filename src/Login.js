@@ -9,12 +9,21 @@ class LoginCard extends Component {
       password: "",
     };
   }
-
   componentDidMount() {
-    const session = localStorage.getItem("session");
-    if (session) {
-      window.location.href = "/";
-    }
+    fetch("https://nandan1996-todo-flask-api.herokuapp.com/verify.session", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        const { message } = json;
+        if (message === "True") {
+          window.location.href = "/";
+        }
+      });
   }
 
   handleChange = (e) => {
@@ -56,8 +65,6 @@ class LoginCard extends Component {
             username: "",
             password: "",
           });
-          localStorage.setItem("session", true);
-          window.location.href = "/";
         });
     }
   };

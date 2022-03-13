@@ -9,15 +9,13 @@ import Login from "./Login";
 import Logout from "./Logout";
 
 ReactDOM.render(
-  <CookiesProvider>
-    <Router>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
-  </CookiesProvider>,
+  <Router>
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/logout" element={<Logout />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  </Router>,
   document.getElementById("root")
 );
