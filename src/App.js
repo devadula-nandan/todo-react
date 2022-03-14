@@ -27,7 +27,7 @@ export default function App(props) {
           }
         });
     }
-  }, []);
+  }, [isLogged]);
   return (
     <isLoggedContext.Provider value={isLogged}>
       <Router>

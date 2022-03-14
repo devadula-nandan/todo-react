@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { isLoggedContext } from "./App";
 
 export default function Login(props) {
-  const isLogged = useContext(isLoggedContext);
+  // const isLogged = useContext(isLoggedContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   function handleChange(e) {

@@ -73,6 +73,7 @@ export default function TodoList() {
       })
       .then((json) => {
         const { message, results } = json;
+        console.log(message);
         setTodos(results);
       });
   }
