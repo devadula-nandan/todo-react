@@ -50,6 +50,7 @@ const Card = (props) => {
 export default function TodoList() {
   const isLogged = useContext(isLoggedContext);
   const [todos, setTodos] = useState([]);
+
   function getTodos() {
     fetch("https://nandan1996-todo-flask-api.herokuapp.com/get.todo", {
       // Adding method type
@@ -83,12 +84,11 @@ export default function TodoList() {
     setTodos(todos.filter((todo) => todo.id !== id));
     fetch("https://nandan1996-todo-flask-api.herokuapp.com/delete.todo", {
       // Adding method type
-      method: "POST",
+      method: "DELETE",
       credentials: "include",
       // Adding body or contents to send
       body: JSON.stringify({
         id: id,
-        session_id: this.state.sessionId,
       }),
       // Adding headers to the request
       headers: {
@@ -148,7 +148,9 @@ export default function TodoList() {
   }
 
   if (isLogged) {
-    getTodos();
+    if (todos.length === 0) {
+      getTodos();
+    }
   }
   return (
     <div className="grid grid-cols-1">
