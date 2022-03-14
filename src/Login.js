@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { isLoggedContext } from "./App";
+import React, { useState } from "react";
+// import { isLoggedContext } from "./App";
 
 export default function Login(props) {
   // const isLogged = useContext(isLoggedContext);
