@@ -74,7 +74,9 @@ export default function TodoList() {
       .then((json) => {
         const { message, results } = json;
         console.log(message);
-        setTodos(results);
+        if (todos !== results) {
+          setTodos(results);
+        }
       });
   }
   function removeTodo(id) {
