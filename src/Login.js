@@ -1,105 +1,60 @@
-import React, { Component } from "react";
-import ResponsiveNavBar from "./Nav";
+import React, { useContext, useState } from "react";
+import { isLoggedContext } from "./App";
 
-class LoginCard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: "",
-    };
+export default function Login(props) {
+  const isLogged = useContext(isLoggedContext);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  function handleChange(e) {
+    if (e.target.name === "username") {
+      setUsername(e.target.value);
+    } else {
+      setPassword(e.target.value);
+    }
   }
-  componentDidMount() {
-    fetch("https://nandan1996-todo-flask-api.herokuapp.com/verify.session", {
-      method: "GET",
+  function handleSubmit(e) {
+    e.preventDefault();
+    fetch("https://nandan1996-todo-flask-api.herokuapp.com/login", {
+      method: "POST",
       credentials: "include",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
+      body: JSON.stringify({ username, password }),
     })
       .then((res) => res.json())
-      .then((json) => {
-        const { message } = json;
+      .then((data) => {
+        const { message } = data;
         if (message === "True") {
-          window.location.href = "/";
+          props.history.push("/");
+        } else {
+          alert("Invalid username or password");
         }
       });
   }
-
-  handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const { username, password } = this.state;
-    if (username && password) {
-      fetch("https://nandan1996-todo-flask-api.herokuapp.com/login", {
-        // Adding method type
-        method: "POST",
-        credentials: "include",
-        // Adding body or contents to send
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-
-        // Adding headers to the request
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          } else {
-            throw new Error("Something went wrong");
-          }
-        })
-        .then((json) => {
-          const { message } = json;
-          alert(message);
-          this.setState({
-            username: "",
-            password: "",
-          });
-        });
-    }
-  };
-
-  render() {
-    const { username, password } = this.state;
-    return (
-      // create a login card with a form to login and a button to logout in tailwind css
-      <>
-        <ResponsiveNavBar />
-        <div className="flex flex-col items-center justify-center h-screen">
-          <form>
-            <div className="bg-lime-200 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-                  Username
-                </label>
-                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" name="username" value={username} onChange={this.handleChange} />
-              </div>
-              <div className="mb-6">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                  Password
-                </label>
-                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" name="password" value={password} onChange={this.handleChange} />
-              </div>
-              <div className="flex items-center justify-center">
-                <button type="submit" className="bg-lime-500 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={this.handleSubmit}>
-                  Login
-                </button>
-              </div>
-            </div>
-          </form>
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      <form>
+        <div className="bg-lime-200 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+              Username
+            </label>
+            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" name="username" value={username} onChange={handleChange} />
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+              Password
+            </label>
+            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" name="password" value={password} onChange={handleChange} />
+          </div>
+          <div className="flex items-center justify-center">
+            <button type="submit" className="bg-lime-500 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={handleSubmit}>
+              Login
+            </button>
+          </div>
         </div>
-      </>
-    );
-  }
+      </form>
+    </div>
+  );
 }
-export default LoginCard;
