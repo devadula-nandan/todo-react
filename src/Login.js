@@ -25,8 +25,8 @@ export default function Login(props) {
       .then((res) => res.json())
       .then((data) => {
         const { message } = data;
-        if (message === "True") {
-          props.history.push("/");
+        if (message === "Logged in successfully") {
+          window.location.href = "/";
         } else {
           alert("Invalid username or password");
         }
