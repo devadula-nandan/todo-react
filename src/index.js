@@ -6,7 +6,7 @@ import Layout from "./layout/Layout";
 import NotFound from "./NotFound";
 import Login from "./Login";
 import Todo from "./Todo";
-import Logout from "./Logout";
+import Welcome from "./Welcome";
 import "./index.css";
 
 export const isLoggedContext = React.createContext(false);
@@ -37,11 +37,15 @@ export default function App() {
   return (
     <isLoggedContext.Provider value={isLogged}>
       <Router>
-        <Layout>
+        <Layout isLogged={isLogged} setIsLogged={setIsLogged}>
           <Routes>
-            <Route path="/" element={<Todo />} />
+            {isLogged === true ? (
+              <Route path="/" element={<Todo />} />
+            ) : (
+              <Route path="/" element={<Welcome />} />
+            )}
             <Route path="/login" element={<Login />} />
-            <Route path="/logout" element={<Logout />} />
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
