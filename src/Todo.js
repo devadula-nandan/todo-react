@@ -1,16 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { isLoggedContext } from "./index";
+// import { isLoggedContext } from "./index";
 import AddBar from "./AddBar";
 
 const Card = (props) => {
-  const colors = ["#f3f4f6", "#fde047", "#fdba74", "#f87171"];
+  const colors = ["bg-gray-300", "bg-yellow-300", "bg-orange-300", "bg-red-300"];
   return (
-    <div
-      className={`break-inside p-3 rounded shadow-lg mb-5`}
-      style={{
-        backgroundColor: colors[props.todo.priority],
-      }}
-    >
+    <div className={`break-inside p-3 rounded shadow-lg mb-5 ${colors[props.todo.priority]}`}>
       <div className="title-text mb-2">
         <pre className="mb-2 font-bold">{props.todo.title}</pre>
         <div className="">
@@ -60,12 +55,12 @@ const Card = (props) => {
   );
 };
 
-export default function TodoList() {
-  const isLogged = useContext(isLoggedContext);
+export default function TodoList(props) {
+  const isLogged = props.isLogged;
   const [todos, setTodos] = useState([]);
   console.log(isLogged);
   useEffect(() => {
-    if (isLogged === true) {
+    if (isLogged) {
       fetch("https://nandan1996-todo-flask-api.herokuapp.com/get.todo", {
         // Adding method type
         method: "POST",

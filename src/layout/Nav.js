@@ -9,9 +9,9 @@ const Nav = (props) => {
   const navRef = useRef(null);
   useEffect(() => {
     if (isLogged) {
-      setLinks(["Home", "Logout"]);
+      setLinks(["Logout"]);
     } else {
-      setLinks(["Home", "signup", "Login"]);
+      setLinks(["signup", "Login"]);
     }
   }, [isLogged]);
   const handleLogout = () => {
@@ -33,24 +33,22 @@ const Nav = (props) => {
     <nav ref={navRef} className="flex items-center justify-between flex-wrap bg-teal-500 p-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <Link to="/" className="font-semibold text-xl tracking-tight">
-          Tailwind CSS
+          Home
         </Link>
       </div>
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div className="text-sm lg:flex-grow">
-          {links.map((link) => 
-            <Link
-              key={link}
-              to={link === "Home" ? "/" : link === "Logout" ? {} : "/signup"}
-              className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-            {...link === "Logout" ? { onClick: handleLogout } : {}}
-            >
+          {links.map((link) => (
+            <Link key={link} to={link === "Logout" ? "/" : link === "Login" ? "/login" : "/signup"} className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" {...(link === "Logout" ? { onClick: handleLogout } : {})}>
               {link}
             </Link>
-          )}
-        </div> 
+          ))}
+        </div>
+        <div className="flex-grow flex flex-row justify-end">
+          <p className="text-white">{isLogged ? "Logged in as " + isLogged : ""}</p>
+        </div>
       </div>
     </nav>
   );
-}
+};
 export default Nav;

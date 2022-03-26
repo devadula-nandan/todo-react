@@ -8,8 +8,9 @@ import Login from "./Login";
 import Todo from "./Todo";
 import Welcome from "./Welcome";
 import "./index.css";
+import Signup from "./Signup";
 
-export const isLoggedContext = React.createContext(false);
+// export const isLoggedContext = React.createContext(false);
 export default function App() {
   const [isLogged, setIsLogged] = useState(false);
   useEffect(() => {
@@ -24,8 +25,8 @@ export default function App() {
         .then((res) => res.json())
         .then((data) => {
           const { message } = data;
-          if (message === "True") {
-            setIsLogged(true);
+          if (message !== "False") {
+            setIsLogged(message);
           } else {
             if (window.location.pathname !== "/login" && isLogged === false) {
               window.location.href = "/login";
@@ -35,22 +36,19 @@ export default function App() {
     }
   }, [isLogged]);
   return (
-    <isLoggedContext.Provider value={isLogged}>
-      <Router>
-        <Layout isLogged={isLogged} setIsLogged={setIsLogged}>
-          <Routes>
-            {isLogged === true ? (
-              <Route path="/" element={<Todo />} />
-            ) : (
-              <Route path="/" element={<Welcome />} />
-            )}
-            <Route path="/login" element={<Login />} />
-            
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Layout>
-      </Router>
-    </isLoggedContext.Provider>
+    // <isLoggedContext.Provider value={isLogged}>
+    <Router>
+      <Layout isLogged={isLogged} setIsLogged={setIsLogged}>
+        <Routes>
+          {isLogged ? <Route path="/" element={<Todo isLogged={isLogged} />} /> : <Route path="/" element={<Welcome />} />}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Layout>
+    </Router>
+    // </isLoggedContext.Provider>
   );
 }
 ReactDOM.render(
