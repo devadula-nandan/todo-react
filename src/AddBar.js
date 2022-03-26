@@ -14,6 +14,7 @@ export default function Form(props) {
     if (text && title) {
       props.addTodo({ text, title, priority, deadline });
       setFormData({ text: "", title: "", priority: 0, deadline: null });
+      // reset defaultChecked value of checkbox after submit
     }
   }
 

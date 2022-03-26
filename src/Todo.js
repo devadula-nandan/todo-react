@@ -3,9 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 import AddBar from "./AddBar";
 
 const Card = (props) => {
-  const colors = ["bg-gray-300", "bg-yellow-300", "bg-orange-300", "bg-red-300"];
   return (
-    <div className={`break-inside p-3 rounded shadow-lg mb-5 ${colors[props.todo.priority]}`}>
+    <div className={"break-inside p-3 rounded shadow-lg mb-5 " + (props.todo.priority === 0 ? "bg-gray-200" : props.todo.priority === 1 ? "bg-yellow-300" : props.todo.priority === 2 ? "bg-orange-300" : "bg-red-300")}>
       <div className="title-text mb-2">
         <pre className="mb-2 font-bold">{props.todo.title}</pre>
         <div className="">
@@ -116,6 +115,7 @@ export default function TodoList(props) {
     if (data.deadline) {
       data.deadline = new Date(data.deadline).toString();
     }
+    data.priority = Number(data.priority);
     const newTodos = [data, ...todos];
     setTodos(newTodos);
     if (data.deadline === null) {
