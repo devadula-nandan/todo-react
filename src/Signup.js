@@ -37,7 +37,7 @@ export default function Signup(props) {
       });
   }
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-[calc(100vh-76px)]">
       <form>
         <div className="bg-teal-100 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">

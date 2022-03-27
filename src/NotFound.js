@@ -4,7 +4,7 @@ import ResponsiveNavBar from "./layout/Nav";
 //create a 404 page for the app to render
 const NotFound = () => {
   return (
-    <div className="h-screen w-screen bg-teal-100 flex flex-col">
+    <div className="h-[calc(100vh-76px)] w-screen bg-teal-100 flex flex-col">
       <h1 className="text-teal-800 mb-10 mt-auto mx-auto lg:text-6xl md:text-4xl sm:text-3xl text-2xl text-center drop-shadow-2xl">404 Page Not Found</h1>
       <svg height={80} className="text-teal-800 mb-8 mx-auto lg:text-4xl md:text-3xl sm:text-2xl text-xl text-center drop-shadow-2xl" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
         <path
