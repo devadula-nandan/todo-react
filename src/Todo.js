@@ -16,7 +16,7 @@ const Card = (props) => {
           <button className="p-2 h-9 w-9 inline-flex rounded-full transition-all active:bg-black/20 hover:bg-black/10 hover:shadow-md" title="edit">
             <i className="fas m-auto fa-pen-square"></i>
           </button>
-          <button className="p-2 h-9 w-9 inline-flex rounded-full transition-all active:bg-black/20 hover:bg-black/10 hover:shadow-md" title="complete">
+          <button onClick={() => props.checkTodo(props.todo.id)} className="p-2 h-9 w-9 inline-flex rounded-full transition-all active:bg-black/20 hover:bg-black/10 hover:shadow-md" title="complete">
             <i className="fas m-auto fa-check-square"></i>
           </button>
           <button
@@ -156,6 +156,27 @@ export default function TodoList(props) {
         return true;
       });
   }
+  function checkTodo(id) {
+    setTodos(todos.filter((todo) => todo.id !== id));
+    fetch("https://nandan1996-todo-flask-api.herokuapp.com/check.todo", {
+      // Adding method type
+      method: "POST",
+      credentials: "include",
+      // Adding body or contents to send
+      body: JSON.stringify({
+        id: id,
+      }),
+      // Adding headers to the request
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        const { message } = json;
+        console.log(message);
+      });
+  }
 
   return (
     <div className="md:container md:mx-auto px-3 sm:px-7 pt-4 lg:px-8">
@@ -166,6 +187,7 @@ export default function TodoList(props) {
             key={todo.id}
             todo={todo}
             removeTodo={removeTodo}
+            checkTodo={checkTodo}
             // updateTodo={props.updateTodo}
           />
         ))}
