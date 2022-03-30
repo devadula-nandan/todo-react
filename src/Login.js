@@ -7,6 +7,7 @@ export default function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [err, setErr] = useState(false);
   function handleChange(e) {
     if (e.target.name === "username") {
       setUsername(e.target.value);
@@ -32,7 +33,7 @@ export default function Login(props) {
           window.location.href = "/";
         } else {
           setIsLoading(false);
-          alert("Invalid username or password");
+          setErr("Username or password is incorrect");
         }
       });
   }
@@ -76,6 +77,7 @@ export default function Login(props) {
                 {isLoading ? <Loading /> : null}
               </button>
             </div>
+            {err && <p className="text-red-500 text-xs italic">{err}</p>}
           </div>
         </form>
       </div>
