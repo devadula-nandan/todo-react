@@ -4,16 +4,7 @@ import { Link } from "react-router-dom";
 // create a responsive navbar with links to each page and dynamic login/logout with tailwindcss classes
 const Nav = (props) => {
   const isLogged = props.isLogged;
-  console.log(isLogged);
-  const [links, setLinks] = useState([]);
   const navRef = useRef(null);
-  useEffect(() => {
-    if (isLogged) {
-      setLinks(["Logout"]);
-    } else {
-      setLinks(["signup", "Login"]);
-    }
-  }, [isLogged]);
   const handleLogout = () => {
     fetch("https://nandan1996-todo-flask-api.herokuapp.com/logout", {
       // Adding method type
@@ -86,22 +77,25 @@ const Nav = (props) => {
           </div>
           {/* <!-- Secondary Navbar items --> */}
           <div className="hidden md:flex items-center space-x-3 ">
-            {links.map((link) => (
-              <Link
-                key={link}
-                to={
-                  link === "Logout"
-                    ? "/"
-                    : link === "Login"
-                    ? "/login"
-                    : "/signup"
-                }
-                className="text-slate-50 m-auto rounded-3xl bg-teal-700 hover:bg-teal-600 active:bg-teal-500 hover:shadow-2xl transition-all px-4 py-2"
-                {...(link === "Logout" ? { onClick: handleLogout } : {})}
-              >
-                {link}
-              </Link>
-            ))}
+            {
+              // if user is logged in, show logout button
+              isLogged ? (
+                <button
+                  onClick={handleLogout}
+                  className="text-slate-50 m-auto rounded-3xl bg-teal-700 hover:bg-teal-600 active:bg-teal-500 hover:shadow-2xl transition-all px-4 py-2"
+                >
+                  Logout
+                </button>
+              ) : (
+                // else show login button
+                <Link
+                  to="/login"
+                  className="text-slate-50 m-auto rounded-3xl bg-teal-700 hover:bg-teal-600 active:bg-teal-500 hover:shadow-2xl transition-all px-4 py-2"
+                >
+                  Login
+                </Link>
+              )
+            }
           </div>
           {/* <!-- Mobile menu button --> */}
           <div className="md:hidden flex items-center">
@@ -127,12 +121,30 @@ const Nav = (props) => {
       </div>
       {/* <!-- mobile menu --> */}
       <div ref={navRef} className="hidden mobile-menu">
-        <ul className="">
-          {links.map((link) => (
-            <li key={link} className="p-3 ml-4 font-bold text-gray-500 hover:text-teal-700">
-              <Link to={link === "Logout" ? "/" : link === "Login" ? "/login" : "/signup"}> {link} </Link>
-            </li>
-          ))}
+        <ul className="ml-2">
+          {
+            // if user is logged in, show logout button
+            isLogged ? (
+              <li className="pb-3">
+                <button
+                  onClick={handleLogout}
+                  className="text-slate-50 m-auto rounded-3xl bg-teal-700 hover:bg-teal-600 active:bg-teal-500 hover:shadow-2xl transition-all px-4 py-2 inline-block"
+                >
+                  Logout
+                </button>
+              </li>
+            ) : (
+              // else show login button
+              <li className="pb-3">
+                <Link
+                  to="/login"
+                  className="text-slate-50 m-auto rounded-3xl bg-teal-700 hover:bg-teal-600 active:bg-teal-500 hover:shadow-2xl transition-all px-4 py-2 inline-block"
+                >
+                  Login
+                </Link>
+              </li>
+            )
+          }
         </ul>
       </div>
       {/* <script>

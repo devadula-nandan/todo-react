@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Loading from "./Loading";
 // import { isLoggedContext } from "./App";
 
@@ -15,6 +15,9 @@ export default function Login(props) {
       setPassword(e.target.value);
     }
   }
+  useEffect(() => {
+    setErr(false);
+  }, [username, password]);
   function handleSubmit(e) {
     setIsLoading(true);
     e.preventDefault();

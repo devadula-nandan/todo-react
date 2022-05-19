@@ -29,13 +29,17 @@ const Card = (props) => {
       }
     >
       <div className="title-text mb-2">
-        <pre className="mb-2 font-bold">{props.todo.title}</pre>
+        <pre className="mb-2 font-bold text-lg cursor-default">
+          {props.todo.title}
+        </pre>
         <div className="">
-          <pre className="whitespace-pre-wrap">{props.todo.text}</pre>
+          <pre className="whitespace-pre-wrap cursor-default">
+            {props.todo.text}
+          </pre>
         </div>
       </div>
       <div className="grid grid-cols-3">
-        <div className="col-span-2">
+        <div className="col-span-2 -ml-2 -mb-2">
           <button
             className="p-2 h-9 w-9 inline-flex rounded-full transition-all active:bg-black/20 hover:bg-black/10 hover:shadow-md"
             title="edit"
@@ -63,24 +67,46 @@ const Card = (props) => {
 
         {props.todo.deadline && (
           <div className="flex" title={props.todo.deadline}>
-            <p className="text-xs m-auto bg-black/10 px-1 rounded-md py-0.5">
+            <p className="text-xs mt-auto ml-auto bg-black/10 px-1 rounded-md py-0.5 hover:bg-black/20 cursor-default">
               {
                 // show years and months or months and days or days and hours or hours and minutes or minutes and seconds or seconds if the deadline is in future else show overdue
-                deadline.getTime() > new Date().getTime()
-                  ? deadline.getFullYear() === new Date().getFullYear()
-                    ? deadline.getMonth() === new Date().getMonth()
-                      ? deadline.getDate() === new Date().getDate()
-                        ? deadline.getHours() === new Date().getHours()
-                          ? deadline.getMinutes() === new Date().getMinutes()
-                            ? deadline.getSeconds() === new Date().getSeconds()
-                              ? "now"
-                              : `${deadline.getSeconds() - new Date().getSeconds()}s`
-                            : `${deadline.getMinutes() - new Date().getMinutes()}m ${deadline.getSeconds() - new Date().getSeconds()}s`
-                          : `${deadline.getHours() - new Date().getHours()}h ${deadline.getMinutes() - new Date().getMinutes()}m`
-                        : `${deadline.getDate() - new Date().getDate()}d ${deadline.getHours() - new Date().getHours()}h`
-                      : `${deadline.getMonth() - new Date().getMonth()}m ${deadline.getDate() - new Date().getDate()}d`
-                    : `${deadline.getFullYear() - new Date().getFullYear()}y ${deadline.getMonth() - new Date().getMonth()}m`
-                  : "overdue"
+                deadline
+                  ? deadline.getTime() > new Date().getTime()
+                    ? deadline.getFullYear() === new Date().getFullYear()
+                      ? deadline.getMonth() === new Date().getMonth()
+                        ? deadline.getDate() === new Date().getDate()
+                          ? deadline.getHours() === new Date().getHours()
+                            ? deadline.getMinutes() === new Date().getMinutes()
+                              ? deadline.getSeconds() ===
+                                new Date().getSeconds()
+                                ? "now"
+                                : `${
+                                    deadline.getSeconds() -
+                                    new Date().getSeconds()
+                                  }s`
+                              : `${
+                                  deadline.getMinutes() -
+                                  new Date().getMinutes()
+                                }m ${
+                                  deadline.getSeconds() -
+                                  new Date().getSeconds()
+                                }s`
+                            : `${
+                                deadline.getHours() - new Date().getHours()
+                              }h ${
+                                deadline.getMinutes() - new Date().getMinutes()
+                              }m`
+                          : `${deadline.getDate() - new Date().getDate()}d ${
+                              deadline.getHours() - new Date().getHours()
+                            }h`
+                        : `${deadline.getMonth() - new Date().getMonth()}m ${
+                            deadline.getDate() - new Date().getDate()
+                          }d`
+                      : `${
+                          deadline.getFullYear() - new Date().getFullYear()
+                        }y ${deadline.getMonth() - new Date().getMonth()}m`
+                    : "overdue"
+                  : "loading..."
               }
             </p>
           </div>
