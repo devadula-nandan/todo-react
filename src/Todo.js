@@ -178,7 +178,7 @@ export default function TodoList(props) {
     <div className="md:container md:mx-auto px-3 sm:px-7 pt-4 lg:px-8">
       <AddBar setTodos={setTodos} todos={todos} />
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mb-2"
         onClick={(e) => {
           // set this element inner html to the value of the input
           e.target.innerHTML === "Active"
