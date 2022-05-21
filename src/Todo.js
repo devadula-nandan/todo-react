@@ -122,7 +122,6 @@ const Card = (props) => {
 export default function TodoList(props) {
   const isLogged = props.isLogged;
   const [todos, setTodos] = useState([]);
-  console.log(isLogged);
   useEffect(() => {
     if (isLogged) {
        getTodos();
@@ -145,9 +144,6 @@ export default function TodoList(props) {
   }
 
   function removeTodo(i) {
-    console.log({
-      id: i,
-    });
     axios
       .delete("https://nandan1996-todo-flask-api.herokuapp.com/delete.todo", {
         data: {

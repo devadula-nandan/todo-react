@@ -13,7 +13,6 @@ export default function Form(props) {
 
   function addTodo(e) {
     e.preventDefault();
-    console.log(formData);
     if (formData.text && formData.title) {
       axios
         .post(
