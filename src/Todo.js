@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
 // import { isLoggedContext } from "./index";
 import AddBar from "./AddBar";
+import { data } from "autoprefixer";
+axios.defaults.withCredentials = true;
 
 const Card = (props) => {
   const d = new Date(props.todo.deadline + "+0530");
-  const [deadline, setDeadline] = useState(
-    new Date(props.todo.deadline + "+0530")
-  );
+  const [deadline, setDeadline] = useState(undefined);
   // decrement time every second to show time left
   useEffect(() => {
     const timer = setInterval(() => {
@@ -25,7 +26,9 @@ const Card = (props) => {
           ? "bg-yellow-300"
           : props.todo.priority === 2
           ? "bg-orange-300"
-          : "bg-red-300")
+          : props.todo.priority === 3
+          ? "bg-red-300"
+          : "bg-green-300")
       }
     >
       <div className="title-text mb-2">
@@ -122,127 +125,58 @@ export default function TodoList(props) {
   console.log(isLogged);
   useEffect(() => {
     if (isLogged) {
-      fetch("https://nandan1996-todo-flask-api.herokuapp.com/get.todo", {
-        // Adding method type
-        method: "POST",
-        credentials: "include",
-        // Adding body or contents to send
-        body: JSON.stringify({
-          active: true,
-        }),
-        // Adding headers to the request
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      })
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          } else {
-            throw new Error("Something went wrong");
-          }
-        })
-        .then((json) => {
-          const { message, results } = json;
-          console.log(message);
-          if (todos !== results) {
-            setTodos(results);
-          }
-        });
+       getTodos();
     }
   }, [isLogged]);
-  function removeTodo(id) {
-    setTodos(todos.filter((todo) => todo.id !== id));
-    fetch("https://nandan1996-todo-flask-api.herokuapp.com/delete.todo", {
-      // Adding method type
-      method: "DELETE",
-      credentials: "include",
-      // Adding body or contents to send
-      body: JSON.stringify({
-        id: id,
-      }),
-      // Adding headers to the request
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        const { message } = json;
-        console.log(message);
-      });
-  }
-  function addTodo(data) {
-    let x = data.deadline;
-    if (data.deadline) {
-      data.deadline = new Date(data.deadline).toString();
-    }
-    data.priority = Number(data.priority);
-    const newTodos = [data, ...todos];
-    setTodos(newTodos);
-    if (data.deadline === null) {
-      data.deadline = "";
-    } else {
-      data.deadline = x;
-    }
-
-    fetch("https://nandan1996-todo-flask-api.herokuapp.com/add.todo", {
-      // Adding method type
-      method: "POST",
-      credentials: "include",
-
-      // Adding body or contents to send
-      body: JSON.stringify({
-        deadline: data.deadline,
-        priority: data.priority,
-        text: data.text,
-        title: data.title,
-      }),
-
-      // Adding headers to the request
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
+  const getTodos = (status) => {
+    axios
+      .post("https://nandan1996-todo-flask-api.herokuapp.com/get.todo", {
+        active: true,
+      })
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw new Error("Something went wrong");
+        const { message, results } = res.data;
+        if (todos !== results) {
+          setTodos(results);
         }
       })
-      .then((json) => {
-        const { id } = json;
-        data["id"] = id;
-
-        return true;
+      .catch((err) => {
+        console.log(err);
       });
   }
-  function checkTodo(id) {
-    setTodos(todos.filter((todo) => todo.id !== id));
-    fetch("https://nandan1996-todo-flask-api.herokuapp.com/check.todo", {
-      // Adding method type
-      method: "POST",
-      credentials: "include",
-      // Adding body or contents to send
-      body: JSON.stringify({
-        id: id,
-      }),
-      // Adding headers to the request
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        const { message } = json;
-        console.log(message);
+
+  function removeTodo(i) {
+    console.log({
+      id: i,
+    });
+    axios
+      .delete("https://nandan1996-todo-flask-api.herokuapp.com/delete.todo", {
+        data: {
+          id: i,
+        },
+      })
+      .then((res) => {
+        setTodos(todos.filter((todo) => todo.id !== i));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  function checkTodo(i) {
+    axios
+      .post("https://nandan1996-todo-flask-api.herokuapp.com/check.todo", {
+        id: i,
+      })
+      .then((res) => {
+        setTodos(todos.filter((todo) => todo.id !== i));
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
   return (
     <div className="md:container md:mx-auto px-3 sm:px-7 pt-4 lg:px-8">
-      <AddBar addTodo={addTodo} />
+      <AddBar setTodos ={setTodos} todos={todos} />
       <div className="md:container md:mx-auto masonry sm:masonry-sm md:masonry-md lg:masonry-lg">
         {todos.map((todo) => (
           <Card

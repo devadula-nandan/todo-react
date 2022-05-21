@@ -1,28 +1,45 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { data } from "autoprefixer";
+axios.defaults.withCredentials = true;
 
 export default function Form(props) {
   const [formData, setFormData] = useState({
     text: "",
     title: "",
     priority: 0,
-    deadline: null,
+    deadline: "",
   });
 
   function addTodo(e) {
     e.preventDefault();
-    const { text, title, priority, deadline } = formData;
-    if (text && title) {
-      props.addTodo({ text, title, priority, deadline });
-      setFormData({ text: "", title: "", priority: 0, deadline: null });
-      // reset defaultChecked value of checkbox after submit
+    console.log(formData);
+    if (formData.text && formData.title) {
+      axios
+        .post(
+          "https://nandan1996-todo-flask-api.herokuapp.com/add.todo",
+          formData
+        )
+        .then((res) => {
+          props.setTodos([
+            {
+              id: res.data.id,
+              ...formData,
+            },
+            ...props.todos,
+          ]);
+          setFormData({ text: "", title: "", priority: 0, deadline: "" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
 
   function handleInputChange(e) {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    e.target.type === "radio"
+      ? setFormData({ ...formData, [e.target.name]: parseInt(e.target.value) })
+      : setFormData({ ...formData, [e.target.name]: e.target.value });
   }
   return (
     <form className="mb-6">
