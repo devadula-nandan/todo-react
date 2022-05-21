@@ -43,19 +43,23 @@ const Card = (props) => {
       </div>
       <div className="grid grid-cols-3">
         <div className="col-span-2 -ml-2 -mb-2">
-          <button
-            className="p-2 h-9 w-9 inline-flex rounded-full transition-all active:bg-black/20 hover:bg-black/10 hover:shadow-md"
-            title="edit"
-          >
-            <i className="fas m-auto fa-pen-square"></i>
-          </button>
-          <button
-            onClick={() => props.checkTodo(props.todo.id)}
-            className="p-2 h-9 w-9 inline-flex rounded-full transition-all active:bg-black/20 hover:bg-black/10 hover:shadow-md"
-            title="complete"
-          >
-            <i className="fas m-auto fa-check-square"></i>
-          </button>
+          {props.todo.priority >= 0 && (
+            <>
+              <button
+                className="p-2 h-9 w-9 inline-flex rounded-full transition-all active:bg-black/20 hover:bg-black/10 hover:shadow-md"
+                title="edit"
+              >
+                <i className="fas m-auto fa-pen-square"></i>
+              </button>
+              <button
+                onClick={() => props.checkTodo(props.todo.id)}
+                className="p-2 h-9 w-9 inline-flex rounded-full transition-all active:bg-black/20 hover:bg-black/10 hover:shadow-md"
+                title="complete"
+              >
+                <i className="fas m-auto fa-check-square"></i>
+              </button>
+            </>
+          )}
           <button
             className="p-2 h-9 w-9 inline-flex rounded-full transition-all active:bg-black/20 hover:bg-black/10 hover:shadow-md"
             onClick={() => {
@@ -124,14 +128,14 @@ export default function TodoList(props) {
   const [todos, setTodos] = useState([]);
   useEffect(() => {
     if (isLogged) {
-       getTodos();
+      getTodos({
+        active: true,
+      });
     }
   }, [isLogged]);
-  const getTodos = (status) => {
+  const getTodos = (d) => {
     axios
-      .post("https://nandan1996-todo-flask-api.herokuapp.com/get.todo", {
-        active: true,
-      })
+      .post("https://nandan1996-todo-flask-api.herokuapp.com/get.todo", d)
       .then((res) => {
         const { message, results } = res.data;
         if (todos !== results) {
@@ -141,7 +145,7 @@ export default function TodoList(props) {
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   function removeTodo(i) {
     axios
@@ -172,7 +176,25 @@ export default function TodoList(props) {
 
   return (
     <div className="md:container md:mx-auto px-3 sm:px-7 pt-4 lg:px-8">
-      <AddBar setTodos ={setTodos} todos={todos} />
+      <AddBar setTodos={setTodos} todos={todos} />
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        onClick={(e) => {
+          // set this element inner html to the value of the input
+          e.target.innerHTML === "Active"
+            ? ((e.target.innerHTML = "Completed"),
+              getTodos({
+                active: true,
+                priority: "-1",
+              }))
+            : ((e.target.innerHTML = "Active"),
+              getTodos({
+                active: true,
+              }));
+        }}
+      >
+        Active
+      </button>
       <div className="md:container md:mx-auto masonry sm:masonry-sm md:masonry-md lg:masonry-lg">
         {todos.map((todo) => (
           <Card
