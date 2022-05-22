@@ -43,16 +43,18 @@ export default function Form(props) {
   return (
     <>
       <div class="container mx-auto">
-        <div class="mt-8 mb-2 rounded overflow-hidden">
-          <div class="group outline-none accordion-section" tabindex="1">
-            <div class="flex">
+        <div class="mt-8 rounded overflow-hidden">
+          <div class="group outline-none accordion-section mb-2" tabindex="1">
+            <div class="flex px-3 sm:px-7 pt-4 lg:px-8">
               <input
                 type="text"
                 name="title"
                 onChange={handleInputChange}
                 placeholder="Title"
                 value={formData.title}
+                autoComplete="off"
                 className="
+                    shadow
                     block
                     w-full
                     rounded-md
@@ -64,7 +66,7 @@ export default function Form(props) {
               <button
                 type="submit"
                 onClick={addTodo}
-                class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                class="p-2.5 ml-2 text-sm font-medium text-white bg-teal-700 rounded-lg dark:bg-teal-600 hover:bg-teal-700 active:bg-teal-900 shadow"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -76,16 +78,17 @@ export default function Form(props) {
                 </svg>
               </button>
             </div>
-            <div class="group-focus-within:max-h-screen max-h-0 overflow-hidden ease duration-500">
+            <div class="group-focus-within:max-h-screen max-h-0 px-3 sm:px-7 lg:px-8 overflow-hidden ease duration-500">
               <textarea
                 className="
-                    mt-2
+                    mt-2 shadow
                     block
                     w-full
                     rounded-md
                     bg-gray-100
                     border-transparent
                     focus:border-gray-500 focus:bg-white focus:ring-0
+                    min-h-[2.6rem]
                   "
                 rows="3"
                 type="text"
@@ -98,7 +101,7 @@ export default function Form(props) {
                 <input
                   type="radio"
                   defaultChecked
-                  className="border-gray-300 border-2 shadow-sm text-gray-300 h-12 w-12 rounded-3xl checked:bg-none ml-2 focus:ring-gray-200"
+                  className="border-gray-300 border-2 text-gray-300 h-12 w-12 rounded-3xl checked:bg-none ml-2 focus:ring-gray-200 shadow"
                   name="priority"
                   onChange={handleInputChange}
                   id="secondary-outlined"
@@ -107,7 +110,7 @@ export default function Form(props) {
                 />
                 <input
                   type="radio"
-                  className="border-yellow-300 border-2 shadow-sm text-yellow-300 h-12 w-12 rounded-3xl checked:bg-none ml-2 focus:ring-yellow-200"
+                  className="border-yellow-300 border-2 text-yellow-300 h-12 w-12 rounded-3xl checked:bg-none ml-2 focus:ring-yellow-200 shadow"
                   name="priority"
                   onChange={handleInputChange}
                   id="primary-outlined"
@@ -116,7 +119,7 @@ export default function Form(props) {
                 />
                 <input
                   type="radio"
-                  className="border-orange-300 border-2 shadow-sm text-orange-300 h-12 w-12 rounded-3xl checked:bg-none ml-2 focus:ring-orange-200"
+                  className="border-orange-300 border-2 text-orange-300 h-12 w-12 rounded-3xl checked:bg-none ml-2 focus:ring-orange-200 shadow"
                   name="priority"
                   onChange={handleInputChange}
                   id="warning-outlined"
@@ -125,7 +128,7 @@ export default function Form(props) {
                 />
                 <input
                   type="radio"
-                  className="border-red-300 border-2 shadow-sm text-red-300 h-12 w-12 rounded-3xl checked:bg-none ml-2 focus:ring-red-200"
+                  className="border-red-300 border-2 text-red-300 h-12 w-12 rounded-3xl checked:bg-none ml-2 focus:ring-red-200 shadow"
                   name="priority"
                   onChange={handleInputChange}
                   id="danger-outlined"
@@ -142,7 +145,7 @@ export default function Form(props) {
                   placeholder="Deadline"
                   className="
                   ml-2
-                    block
+                    block shadow
                     w-full
                     rounded-md
                     bg-gray-100

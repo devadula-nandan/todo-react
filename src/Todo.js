@@ -32,7 +32,7 @@ const Card = (props) => {
       }
     >
       <div className="title-text mb-2">
-        <pre className="mb-2 font-bold text-lg cursor-default">
+        <pre className="whitespace-pre-wrap mb-2 font-bold text-lg cursor-default">
           {props.todo.title}
         </pre>
         <div className="">
@@ -175,36 +175,153 @@ export default function TodoList(props) {
   }
 
   return (
-    <div className="md:container md:mx-auto px-3 sm:px-7 pt-4 lg:px-8">
+    <div className="md:container md:mx-auto">
       <AddBar setTodos={setTodos} todos={todos} />
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mb-2"
-        onClick={(e) => {
-          // set this element inner html to the value of the input
-          e.target.innerHTML === "Active"
-            ? ((e.target.innerHTML = "Completed"),
-              getTodos({
-                active: true,
-                priority: "-1",
-              }))
-            : ((e.target.innerHTML = "Active"),
-              getTodos({
-                active: true,
-              }));
-        }}
-      >
-        Active
-      </button>
-      <div className="md:container md:mx-auto masonry sm:masonry-sm md:masonry-md lg:masonry-lg">
-        {todos.map((todo) => (
-          <Card
-            key={todo.id}
-            todo={todo}
-            removeTodo={removeTodo}
-            checkTodo={checkTodo}
-            // updateTodo={props.updateTodo}
-          />
-        ))}
+      <div className="md:container md:mx-auto px-3 sm:px-7 lg:px-8">
+        <div className="flex">
+          <ul className="flex mb-2 rounded-lg shadow">
+            <li className="flex">
+              <input
+                className="sr-only peer"
+                type="radio"
+                value="all"
+                name="answer"
+                id="all"
+                defaultChecked
+              />
+              <label
+                className="px-3 py-2 bg-gray-100 rounded-l-lg cursor-pointer font-semibold text-gray-600 focus:outline-none hover:bg-gray-200 peer-checked:bg-teal-400"
+                for="all"
+                onClick={() => {
+                  getTodos({
+                    active: true,
+                  });
+                }}
+              >
+                ALL
+              </label>
+            </li>
+
+            <li className="flex">
+              <input
+                className="sr-only peer"
+                type="radio"
+                value="0"
+                name="answer"
+                id="0"
+              />
+              <label
+                className="px-3 py-2 bg-gray-100 cursor-pointer font-semibold text-gray-600 focus:outline-none hover:bg-gray-200 peer-checked:bg-gray-300"
+                for="0"
+                onClick={() => {
+                  getTodos({
+                    active: true,
+                    priority: 0,
+                  });
+                }}
+              >
+                0
+              </label>
+            </li>
+
+            <li className="flex">
+              <input
+                className="sr-only peer"
+                type="radio"
+                value="1"
+                name="answer"
+                id="1"
+              />
+              <label
+                className="px-3 py-2 bg-gray-100 cursor-pointer font-semibold text-gray-600 focus:outline-none hover:bg-gray-200 peer-checked:bg-yellow-300"
+                for="1"
+                onClick={() => {
+                  getTodos({
+                    active: true,
+                    priority: 1,
+                  });
+                }}
+              >
+                1
+              </label>
+            </li>
+            <li className="flex">
+              <input
+                className="sr-only peer"
+                type="radio"
+                value="2"
+                name="answer"
+                id="2"
+              />
+              <label
+                className="px-3 py-2 bg-gray-100 cursor-pointer font-semibold text-gray-600 focus:outline-none hover:bg-gray-200 peer-checked:bg-orange-300"
+                for="2"
+                onClick={() => {
+                  getTodos({
+                    active: true,
+                    priority: 2,
+                  });
+                }}
+              >
+                2
+              </label>
+            </li>
+            <li className="flex">
+              <input
+                className="sr-only peer"
+                type="radio"
+                value="3"
+                name="answer"
+                id="3"
+              />
+              <label
+                className="px-3 py-2 bg-gray-100 cursor-pointer font-semibold text-gray-600 focus:outline-none hover:bg-gray-100 peer-checked:bg-red-300"
+                for="3"
+                onClick={() => {
+                  getTodos({
+                    active: true,
+                    priority: 3,
+                  });
+                }}
+              >
+                3
+              </label>
+            </li>
+            <li className="flex">
+              <input
+                className="sr-only peer"
+                type="radio"
+                value="-1"
+                name="answer"
+                id="-1"
+              />
+              <label
+                className="px-3 py-2 bg-gray-100 rounded-r-lg cursor-pointer font-semibold text-gray-600 focus:outline-none hover:bg-gray-100 peer-checked:bg-green-300"
+                for="-1"
+                onClick={() => {
+                  getTodos({
+                    active: true,
+                    priority: -1,
+                  });
+                }}
+              >
+                completed
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <div className="md:container md:mx-auto masonry sm:masonry-sm md:masonry-md lg:masonry-lg">
+          {todos.map((todo) => (
+            <Card
+              key={todo.id}
+              todo={todo}
+              removeTodo={removeTodo}
+              checkTodo={checkTodo}
+              // updateTodo={props.updateTodo}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
