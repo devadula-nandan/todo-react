@@ -42,10 +42,10 @@ export default function Form(props) {
   }
   return (
     <>
-      <div class="container mx-auto">
-        <div class="mt-8 rounded overflow-hidden">
-          <div class="group outline-none accordion-section mb-2" tabindex="1">
-            <div class="flex px-3 sm:px-7 pt-4 lg:px-8">
+      <div className="container mx-auto">
+        <div className="mt-8 rounded overflow-hidden">
+          <div className="group outline-none accordion-section mb-2" tabIndex="1">
+            <div className="flex px-3 sm:px-7 pt-4 lg:px-8">
               <input
                 type="text"
                 name="title"
@@ -66,14 +66,14 @@ export default function Form(props) {
               <button
                 type="submit"
                 onClick={addTodo}
-                class="p-2.5 ml-2 text-sm font-medium text-white bg-teal-400 rounded-lg dark:bg-teal-400 hover:bg-teal-500 active:bg-teal-600 shadow"
+                className="p-2.5 ml-2 text-sm font-medium text-white bg-teal-400 rounded-lg dark:bg-teal-400 hover:bg-teal-500 active:bg-teal-600 shadow"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className=" fill-gray-600" height="24" width="24">
                   <path d="M11 19V13H5V11H11V5H13V11H19V13H13V19Z" />
                 </svg>
               </button>
             </div>
-            <div class="group-focus-within:max-h-screen max-h-0 px-3 sm:px-7 lg:px-8 overflow-hidden ease duration-500">
+            <div className="group-focus-within:max-h-screen max-h-0 px-3 sm:px-7 lg:px-8 overflow-hidden ease duration-500">
               <textarea
                 className="
                     mt-2 shadow
@@ -92,7 +92,7 @@ export default function Form(props) {
                 placeholder="Text"
                 value={formData.text}
               ></textarea>
-              <div class="flex my-2 ">
+              <div className="flex my-2 ">
                 <input
                   type="radio"
                   defaultChecked
