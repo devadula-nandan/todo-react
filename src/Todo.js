@@ -19,9 +19,9 @@ const Card = (props) => {
   return (
     <div
       className={
-        "break-inside p-3 rounded shadow-lg mb-5 " +
+        "break-inside-avoid p-3 rounded shadow mb-5 " +
         (props.todo.priority === 0
-          ? "bg-gray-200"
+          ? "bg-gray-100"
           : props.todo.priority === 1
           ? "bg-yellow-300"
           : props.todo.priority === 2
@@ -177,7 +177,7 @@ export default function TodoList(props) {
   return (
     <div className="md:container md:mx-auto">
       <AddBar setTodos={setTodos} todos={todos} />
-      <div className="md:container md:mx-auto px-3 sm:px-7 lg:px-8">
+      <div className="md:container md:mx-auto px-4 sm:px-7 lg:px-8">
         <div className="flex">
           <ul className="flex mb-2 rounded-lg shadow">
             <li className="flex">
@@ -311,7 +311,7 @@ export default function TodoList(props) {
           </ul>
         </div>
 
-        <div className="md:container md:mx-auto masonry sm:masonry-sm md:masonry-md lg:masonry-lg">
+        <div className="md:container md:mx-auto columns-1 sm:columns-2 lg:columns-3 2xl:columns-4 gap-5 pb-5">
           {todos.map((todo) => (
             <Card
               key={todo.id}
