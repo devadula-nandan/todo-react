@@ -27,10 +27,6 @@ export default function App() {
           const { message } = data;
           if (message !== "False") {
             setIsLogged(message);
-          } else {
-            if (window.location.pathname !== "/login" && isLogged === false) {
-              window.location.href = "/login";
-            }
           }
         });
     }
