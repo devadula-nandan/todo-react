@@ -177,7 +177,7 @@ export default function TodoList(props) {
   return (
     <div className="md:container md:mx-auto">
       <AddBar setTodos={setTodos} todos={todos} />
-      <div className="md:container md:mx-auto px-4 sm:px-7 lg:px-8">
+      <div className="md:container md:mx-auto px-3 sm:px-7 lg:px-8">
         <div className="flex">
           <ul className="flex mb-2 rounded-lg shadow">
             <li className="flex">
