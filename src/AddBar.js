@@ -66,7 +66,7 @@ export default function Form(props) {
               <button
                 type="submit"
                 onClick={addTodo}
-                class="p-2.5 ml-2 text-sm font-medium text-white bg-teal-400 rounded-lg dark:bg-teal-400 hover:bg-teal-700 active:bg-teal-900 shadow"
+                class="p-2.5 ml-2 text-sm font-medium text-white bg-teal-400 rounded-lg dark:bg-teal-400 hover:bg-teal-500 active:bg-teal-600 shadow"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className=" fill-gray-600" height="24" width="24">
                   <path d="M11 19V13H5V11H11V5H13V11H19V13H13V19Z" />
