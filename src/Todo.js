@@ -330,7 +330,7 @@ export default function TodoList(props) {
           <>
             {showModal ? (
               <>
-                <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-black/50">
+                <div className="justify-center backdrop-blur items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-black/50">
                   <div className="relative w-auto my-6 mx-auto max-w-3xl px-3">
                     {/*content*/}
                     <div
