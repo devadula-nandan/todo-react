@@ -55,7 +55,9 @@ const Card = (props) => {
                     title: props.todo.title,
                     text: props.todo.text,
                     priority: props.todo.priority,
-                    deadline: props.todo.deadline,
+                    deadline: new Date(props.todo.deadline)
+                      .toISOString()
+                      .slice(0, 16),
                     id: props.todo.id,
                   });
                 }}
@@ -359,7 +361,10 @@ export default function TodoList(props) {
                         />
                         <button
                           className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                          onClick={() => setShowModal(false)}
+                          onClick={() => {
+                            setShowModal(false);
+                            setEditData({});
+                          }}
                         >
                           <span className="bg-transparent text-black leading-6 h-6 w-6 block outline-none focus:outline-none">
                             ×
@@ -379,21 +384,22 @@ export default function TodoList(props) {
                         />
                       </div>
                       <div className="relative px-2 flex-auto">
-                          <input
-                            type="datetime-local"
-                            onChange={(e) =>
-                              setEditData({
-                                ...editData,
-                                deadline: e.target.value,
-                              })
-                            }
-                            id="schedule"
-                            name="deadline"
-                            min="2021-06-21T00:00"
-                            max="2031-06-21T00:00"
-                            placeholder="Deadline"
-                            className=" bg-transparent focus:outline-none border-0 rounded-lg py-2 px-3 block w-full leading-normal focus:ring-0 font-semibold text-md"
-                          />
+                        <input
+                          type="datetime-local"
+                          onChange={(e) =>
+                            setEditData({
+                              ...editData,
+                              deadline: e.target.value,
+                            })
+                          }
+                          value={editData.deadline}
+                          id="schedule"
+                          name="deadline"
+                          min="2021-06-21T00:00"
+                          max="2031-06-21T00:00"
+                          placeholder="Deadline"
+                          className=" bg-transparent focus:outline-none border-0 rounded-lg py-2 px-3 block w-full leading-normal focus:ring-0 font-semibold text-md"
+                        />
                       </div>
                       {/*footer*/}
                       <div className="flex items-center justify-between px-2 pb-2 rounded-b">
@@ -450,7 +456,30 @@ export default function TodoList(props) {
                         <button
                           className="bg-teal-400 text-gray-600 active:bg-teal-500 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
                           type="button"
-                          onClick={() => setShowModal(false)}
+                          onClick={
+                            () => {
+                              axios
+                                .post(
+                                  "https://nandan1996-todo-flask-api.herokuapp.com/update.todo",
+                                  editData
+                                )
+                                .then((res) => {
+                                  console.log(res);
+                                  // mutate todos and change the todo that is being edited
+                                  setTodos(
+                                    todos.map((todo) => {
+                                      todo.id === editData.id && (todo = editData);
+                                      return todo;
+                                    })
+                                  );
+                                  setShowModal(false);
+                                })
+                                .catch((err) => {
+                                  console.log(err);
+                                });
+                            }
+                            // https://nandan1996-todo-flask-api.herokuapp.com/update.todo
+                          }
                         >
                           Save
                         </button>
