@@ -452,7 +452,7 @@ export default function TodoList(props) {
                           type="button"
                           onClick={() => setShowModal(false)}
                         >
-                          Save Changes
+                          Save
                         </button>
                       </div>
                     </div>
