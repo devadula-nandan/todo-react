@@ -396,7 +396,7 @@ export default function TodoList(props) {
                           />
                       </div>
                       {/*footer*/}
-                      <div className="flex items-center justify-end px-2 pb-2 rounded-b">
+                      <div className="flex items-center justify-between px-2 pb-2 rounded-b">
                         <div className="flex items-center">
                           <input
                             type="radio"
