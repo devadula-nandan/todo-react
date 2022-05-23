@@ -8,6 +8,7 @@ axios.defaults.withCredentials = true;
 const Card = (props) => {
   const d = new Date(props.todo.deadline + "+0530");
   const [deadline, setDeadline] = useState(undefined);
+
   // decrement time every second to show time left
   useEffect(() => {
     const timer = setInterval(() => {
@@ -48,7 +49,16 @@ const Card = (props) => {
               <button
                 className="p-2 h-9 w-9 inline-flex rounded-full transition-all active:bg-black/20 hover:bg-black/10 hover:shadow-md"
                 title="edit"
-                onClick={() => props.setShowModal(true)}
+                onClick={() => {
+                  props.setShowModal(true);
+                  props.setEditData({
+                    title: props.todo.title,
+                    text: props.todo.text,
+                    priority: props.todo.priority,
+                    deadline: props.todo.deadline,
+                    id: props.todo.id,
+                  });
+                }}
               >
                 <i className="fas m-auto fa-pen-square"></i>
               </button>
@@ -127,6 +137,7 @@ const Card = (props) => {
 export default function TodoList(props) {
   const isLogged = props.isLogged;
   const [todos, setTodos] = useState([]);
+  const [editData, setEditData] = useState({});
   const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     if (isLogged) {
@@ -317,44 +328,127 @@ export default function TodoList(props) {
           <>
             {showModal ? (
               <>
-                <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-black">
-                  <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-black/50">
+                  <div className="relative w-auto my-6 mx-auto max-w-3xl px-3">
                     {/*content*/}
-                    <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                    <div
+                      className={
+                        "border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none " +
+                        (editData.priority === 0
+                          ? "bg-gray-100"
+                          : editData.priority === 1
+                          ? "bg-yellow-300"
+                          : editData.priority === 2
+                          ? "bg-orange-300"
+                          : editData.priority === 3
+                          ? "bg-red-300"
+                          : "bg-green-300")
+                      }
+                    >
                       {/*header*/}
-                      <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                        <h3 className="text-3xl font-semibold">Modal Title</h3>
+                      <div className="flex items-start justify-between px-2 pt-2 rounded-t">
+                        <input
+                          type="text"
+                          value={editData.title}
+                          onChange={(e) =>
+                            setEditData({ ...editData, title: e.target.value })
+                          }
+                          className="
+                          bg-transparent focus:outline-none border-0 rounded-lg py-2 px-3 block w-full leading-normal focus:ring-0 font-semibold text-xl
+                        "
+                        />
                         <button
-                          className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                          className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                           onClick={() => setShowModal(false)}
                         >
-                          <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                          <span className="bg-transparent text-black leading-6 h-6 w-6 block outline-none focus:outline-none">
                             ×
                           </span>
                         </button>
                       </div>
                       {/*body*/}
-                      <div className="relative p-6 flex-auto">
-                        <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                          I always felt like I could do anything. That’s the
-                          main thing people are controlled by! Thoughts- their
-                          perception of themselves! They're slowed down by their
-                          perception of themselves. If you're taught you can’t
-                          do anything, you won’t do anything. I was taught I
-                          could do everything.
-                        </p>
+                      <div className="relative px-2 flex-auto">
+                        <textarea
+                          value={editData.text}
+                          onChange={(e) =>
+                            setEditData({ ...editData, text: e.target.value })
+                          }
+                          className="
+                          bg-transparent focus:outline-none border-0 rounded-lg py-2 px-3 block w-full leading-normal focus:ring-0 font-semibold text-sm 
+                        "
+                        />
+                      </div>
+                      <div className="relative px-2 flex-auto">
+                          <input
+                            type="datetime-local"
+                            onChange={(e) =>
+                              setEditData({
+                                ...editData,
+                                deadline: e.target.value,
+                              })
+                            }
+                            id="schedule"
+                            name="deadline"
+                            min="2021-06-21T00:00"
+                            max="2031-06-21T00:00"
+                            placeholder="Deadline"
+                            className=" bg-transparent focus:outline-none border-0 rounded-lg py-2 px-3 block w-full leading-normal focus:ring-0 font-semibold text-md"
+                          />
                       </div>
                       {/*footer*/}
-                      <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                      <div className="flex items-center justify-end px-2 pb-2 rounded-b">
+                        <div className="flex items-center">
+                          <input
+                            type="radio"
+                            {...(editData.priority === 0 && { checked: true })}
+                            className="border-gray-300 border-2 text-gray-300 h-9 w-9 rounded-3xl checked:bg-none mr-2 focus:ring-gray-200 shadow"
+                            name="priority"
+                            onChange={() =>
+                              setEditData({ ...editData, priority: 0 })
+                            }
+                            id="secondary-outlined"
+                            defaultValue="0"
+                            autoComplete="off"
+                          />
+                          <input
+                            type="radio"
+                            {...(editData.priority === 1 && { checked: true })}
+                            className="border-yellow-300 border-2 text-yellow-300 h-9 w-9 rounded-3xl checked:bg-none mr-2 focus:ring-yellow-200 shadow"
+                            name="priority"
+                            onChange={() =>
+                              setEditData({ ...editData, priority: 1 })
+                            }
+                            id="primary-outlined"
+                            defaultValue="1"
+                            autoComplete="off"
+                          />
+                          <input
+                            type="radio"
+                            {...(editData.priority === 2 && { checked: true })}
+                            className="border-orange-300 border-2 text-orange-300 h-9 w-9 rounded-3xl checked:bg-none mr-2 focus:ring-orange-200 shadow"
+                            name="priority"
+                            onChange={() =>
+                              setEditData({ ...editData, priority: 2 })
+                            }
+                            id="warning-outlined"
+                            defaultValue="2"
+                            autoComplete="off"
+                          />
+                          <input
+                            type="radio"
+                            {...(editData.priority === 3 && { checked: true })}
+                            className="border-red-300 border-2 text-red-300 h-9 w-9 rounded-3xl checked:bg-none mr-2 focus:ring-red-200 shadow"
+                            name="priority"
+                            onChange={() =>
+                              setEditData({ ...editData, priority: 3 })
+                            }
+                            id="danger-outlined"
+                            defaultValue="3"
+                            autoComplete="off"
+                          />
+                        </div>
                         <button
-                          className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                          type="button"
-                          onClick={() => setShowModal(false)}
-                        >
-                          Close
-                        </button>
-                        <button
-                          className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                          className="bg-teal-400 text-gray-600 active:bg-teal-500 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
                           type="button"
                           onClick={() => setShowModal(false)}
                         >
@@ -364,12 +458,13 @@ export default function TodoList(props) {
                     </div>
                   </div>
                 </div>
-                <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
               </>
             ) : null}
           </>
           {todos.map((todo) => (
             <Card
+              editData={editData}
+              setEditData={setEditData}
               setShowModal={setShowModal}
               key={todo.id}
               todo={todo}
