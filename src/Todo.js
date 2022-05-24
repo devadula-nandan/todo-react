@@ -73,6 +73,29 @@ const Card = (props) => {
               </button>
             </>
           )}
+          {props.todo.priority < 0 && (
+            <button
+              onClick={() => {
+                axios
+                  .post(
+                    "https://nandan1996-todo-flask-api.herokuapp.com/uncheck.todo",
+                    {
+                      id: props.todo.id,
+                    }
+                  )
+                  .then((res) => {
+                    props.setTodos( props.todos.filter(todo => todo.id !== props.todo.id));
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              }}
+              className="p-2 h-9 w-9 inline-flex rounded-full transition-all active:bg-black/20 hover:bg-black/10 hover:shadow-md"
+              title="restore"
+            >
+              <i className="fas m-auto fa-check-square"></i>
+            </button>
+          )}
           <button
             className="p-2 h-9 w-9 inline-flex rounded-full transition-all active:bg-black/20 hover:bg-black/10 hover:shadow-md"
             onClick={() => {
@@ -468,7 +491,8 @@ export default function TodoList(props) {
                                   // mutate todos and change the todo that is being edited
                                   setTodos(
                                     todos.map((todo) => {
-                                      todo.id === editData.id && (todo = editData);
+                                      todo.id === editData.id &&
+                                        (todo = editData);
                                       return todo;
                                     })
                                   );
@@ -499,6 +523,8 @@ export default function TodoList(props) {
               todo={todo}
               removeTodo={removeTodo}
               checkTodo={checkTodo}
+              setTodos={setTodos}
+              todos={todos}
               // updateTodo={props.updateTodo}
             />
           ))}
