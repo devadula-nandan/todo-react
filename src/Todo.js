@@ -162,6 +162,7 @@ const Card = (props) => {
 export default function TodoList(props) {
   const isLogged = props.isLogged;
   const [todos, setTodos] = useState([]);
+  const [activeTab , setActiveTab] = useState("all");
   const [editData, setEditData] = useState({});
   const [showModal, setShowModal] = useState(false);
   useEffect(() => {
@@ -214,7 +215,7 @@ export default function TodoList(props) {
 
   return (
     <div className="md:container md:mx-auto">
-      <AddBar setTodos={setTodos} todos={todos} />
+      <AddBar setTodos={setTodos} todos={todos} activeTab={activeTab} />
       <div className="md:container md:mx-auto px-3 sm:px-7 lg:px-8">
         <div className="flex">
           <ul className="flex mb-2 rounded-lg shadow">
@@ -231,6 +232,7 @@ export default function TodoList(props) {
                 className="px-3 py-2 bg-gray-100 rounded-l-lg cursor-pointer font-semibold text-gray-600 focus:outline-none hover:bg-gray-200 peer-checked:bg-teal-400"
                 for="all"
                 onClick={() => {
+                  setActiveTab('all');
                   getTodos({
                     active: true,
                   });
@@ -252,6 +254,7 @@ export default function TodoList(props) {
                 className="px-3 py-2 bg-gray-100 cursor-pointer font-semibold text-gray-600 focus:outline-none hover:bg-gray-200 peer-checked:bg-gray-300"
                 for="0"
                 onClick={() => {
+                  setActiveTab(0);
                   getTodos({
                     active: true,
                     priority: 0,
@@ -274,6 +277,7 @@ export default function TodoList(props) {
                 className="px-3 py-2 bg-gray-100 cursor-pointer font-semibold text-gray-600 focus:outline-none hover:bg-gray-200 peer-checked:bg-yellow-300"
                 for="1"
                 onClick={() => {
+                  setActiveTab(1);
                   getTodos({
                     active: true,
                     priority: 1,
@@ -295,6 +299,7 @@ export default function TodoList(props) {
                 className="px-3 py-2 bg-gray-100 cursor-pointer font-semibold text-gray-600 focus:outline-none hover:bg-gray-200 peer-checked:bg-orange-300"
                 for="2"
                 onClick={() => {
+                  setActiveTab(2);
                   getTodos({
                     active: true,
                     priority: 2,
@@ -316,6 +321,7 @@ export default function TodoList(props) {
                 className="px-3 py-2 bg-gray-100 cursor-pointer font-semibold text-gray-600 focus:outline-none hover:bg-gray-100 peer-checked:bg-red-300"
                 for="3"
                 onClick={() => {
+                  setActiveTab(3);
                   getTodos({
                     active: true,
                     priority: 3,
@@ -337,6 +343,7 @@ export default function TodoList(props) {
                 className="px-3 py-2 bg-gray-100 rounded-r-lg cursor-pointer font-semibold text-gray-600 focus:outline-none hover:bg-gray-100 peer-checked:bg-green-300"
                 for="-1"
                 onClick={() => {
+                  setActiveTab(-1);
                   getTodos({
                     active: true,
                     priority: -1,

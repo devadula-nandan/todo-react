@@ -20,6 +20,7 @@ export default function Form(props) {
           formData
         )
         .then((res) => {
+          if(props.activeTab === 'all' || props.activeTab === formData.priority){
           props.setTodos([
             {
               id: res.data.id,
@@ -27,6 +28,7 @@ export default function Form(props) {
             },
             ...props.todos,
           ]);
+          }
           setFormData({ text: "", title: "", priority: 0, deadline: "" });
         })
         .catch((err) => {
@@ -44,7 +46,10 @@ export default function Form(props) {
     <>
       <div className="container mx-auto">
         <div className="mt-8 rounded overflow-hidden">
-          <div className="group outline-none accordion-section mb-2" tabIndex="1">
+          <div
+            className="group outline-none accordion-section mb-2"
+            tabIndex="1"
+          >
             <div className="flex px-3 sm:px-7 pt-4 lg:px-8">
               <input
                 type="text"
@@ -68,7 +73,12 @@ export default function Form(props) {
                 onClick={addTodo}
                 className="p-2.5 ml-2 text-sm font-medium text-white bg-teal-400 rounded-lg dark:bg-teal-400 hover:bg-teal-500 active:bg-teal-600 shadow"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className=" fill-gray-600" height="24" width="24">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className=" fill-gray-600"
+                  height="24"
+                  width="24"
+                >
                   <path d="M11 19V13H5V11H11V5H13V11H19V13H13V19Z" />
                 </svg>
               </button>
@@ -95,13 +105,13 @@ export default function Form(props) {
               <div className="flex my-2 ">
                 <input
                   type="radio"
-                  defaultChecked
                   className="border-gray-300 border-2 text-gray-300 h-12 w-12 rounded-3xl checked:bg-none ml-2 focus:ring-gray-200 shadow"
                   name="priority"
                   onChange={handleInputChange}
                   id="secondary-outlined"
                   defaultValue="0"
                   autoComplete="off"
+                  {...(formData.priority === 0 && { checked: true })}
                 />
                 <input
                   type="radio"
@@ -111,6 +121,7 @@ export default function Form(props) {
                   id="primary-outlined"
                   defaultValue="1"
                   autoComplete="off"
+                  {...(formData.priority === 1 && { checked: true })}
                 />
                 <input
                   type="radio"
@@ -120,6 +131,7 @@ export default function Form(props) {
                   id="warning-outlined"
                   defaultValue="2"
                   autoComplete="off"
+                  {...(formData.priority === 2 && { checked: true })}
                 />
                 <input
                   type="radio"
@@ -129,6 +141,7 @@ export default function Form(props) {
                   id="danger-outlined"
                   defaultValue="3"
                   autoComplete="off"
+                  {...(formData.priority === 3 && { checked: true })}
                 />
                 <input
                   type="datetime-local"
@@ -138,6 +151,18 @@ export default function Form(props) {
                   min="2021-06-21T00:00"
                   max="2031-06-21T00:00"
                   placeholder="Deadline"
+                  // value={
+                  //   // use today as default value if no deadline is set
+                  //   formData.deadline ||
+                  //   // create new date and add timezone offset
+                  //   new Date(
+                  //     new Date().getTime() +
+                  //       new Date().getTimezoneOffset() * 60000 -
+                  //       3600000
+                  //   )
+                  //     .toISOString()
+                  //     .slice(0, 16)
+                  // }
                   className="
                   ml-2
                     block shadow
