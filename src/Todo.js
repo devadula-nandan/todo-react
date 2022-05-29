@@ -21,7 +21,7 @@ const Card = (props) => {
     <div className="break-inside-avoid p-1.5">
       <div
         className={
-          "p-3 rounded shadow " +
+          "p-3 border border-black/10 rounded shadow " +
           (props.todo.priority === 0
             ? "bg-gray-100"
             : props.todo.priority === 1
